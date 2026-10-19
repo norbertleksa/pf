@@ -25,6 +25,15 @@ export interface Translations {
     technologies: string
     achievements: string
     myRole: string
+    close: string
+    all: string
+    wide: string
+    mobile: string
+    allScreenshots: string
+    backToViewer: string
+    screenshot: string
+    previousScreenshot: string
+    nextScreenshot: string
     gallery: string
     details: string
     otherProjects: string
@@ -146,9 +155,18 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Kliknij projekt, aby zobaczyć szczegóły.',
       viewLive: 'Zobacz Live',
       viewCode: 'Zobacz Kod',
-      technologies: 'Technologie:',
-      achievements: 'Osiągnięcia:',
-      myRole: 'Moja rola:',
+      technologies: 'Technologie',
+      achievements: 'Osiągnięcia',
+      myRole: 'Moja rola',
+      close: 'Zamknij',
+      all: 'Wszystkie',
+      wide: 'Desktop i tablet',
+      mobile: 'Mobile',
+      allScreenshots: 'Wszystkie zrzuty',
+      backToViewer: 'Wróć do podglądu',
+      screenshot: 'Zrzut',
+      previousScreenshot: 'Poprzedni zrzut',
+      nextScreenshot: 'Następny zrzut',
       gallery: 'Galeria',
       details: 'Szczegóły i zrzuty',
       otherProjects: 'Pozostałe projekty',
@@ -269,9 +287,18 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Click on a project to see details.',
       viewLive: 'View Live',
       viewCode: 'View Code',
-      technologies: 'Technologies:',
-      achievements: 'Achievements:',
-      myRole: 'My Role:',
+      technologies: 'Technologies',
+      achievements: 'Achievements',
+      myRole: 'My role',
+      close: 'Close',
+      all: 'All',
+      wide: 'Desktop & tablet',
+      mobile: 'Mobile',
+      allScreenshots: 'All screenshots',
+      backToViewer: 'Back to viewer',
+      screenshot: 'Screenshot',
+      previousScreenshot: 'Previous screenshot',
+      nextScreenshot: 'Next screenshot',
       gallery: 'Gallery',
       details: 'Details & screenshots',
       otherProjects: 'Other projects',
