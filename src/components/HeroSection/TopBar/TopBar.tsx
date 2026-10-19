@@ -209,6 +209,7 @@ const TopBar = () => {
               handleNavClick(e, '#contact')
               closeMenu()
             }}
+            style={styles.mobileContact}
           />
           <div className={styles.mobileLanguageThemeContainer}>
             <button

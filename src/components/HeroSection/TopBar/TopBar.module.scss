@@ -252,6 +252,11 @@
   text-align: center;
 }
 
+/* Contact is the main call to action, so it gets the accent like the hero CTA */
+.navButton a.mobileContact {
+  color: var(--accent);
+}
+
 .mobileLanguageThemeContainer {
   display: flex;
   justify-content: space-between;
