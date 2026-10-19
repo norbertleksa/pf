@@ -45,7 +45,7 @@ export const projects: Project[] = [
     name: 'Kitopay',
     highlight: {
       tag: { en: 'Web app · payments', pl: 'Web app · płatności' },
-      cover: { index: 4 },
+      cover: { index: 0, fill: true },
       metrics: [
         { value: '~1M USD', label: { en: 'yearly profit', pl: 'rocznego zysku' } },
         { value: '55k', label: { en: 'active users', pl: 'aktywnych użytkowników' } },
