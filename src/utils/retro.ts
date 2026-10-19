@@ -38,3 +38,6 @@ const subscribe = (onChange: () => void) => {
 }
 
 export const useIsRetro = () => useSyncExternalStore(subscribe, isRetroNow)
+
+// dev only: hot reload swaps this module, so silence the old player instead of orphaning it
+import.meta.hot?.dispose(stopRetroMusic)
