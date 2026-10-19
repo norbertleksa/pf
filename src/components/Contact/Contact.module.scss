@@ -80,10 +80,12 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 
+  /* same lift as the hero CTA */
   &:hover {
     border-color: var(--accent);
+    transform: translateY(-2px);
   }
 }
 
