@@ -139,38 +139,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
             <h2 id="project-modal-title" className={styles.title}>
               {project.name}
             </h2>
-            <div className={styles.links}>
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.liveLink}
-                >
-                  {project.liveUrlLabel ? project.liveUrlLabel[language] : t.projects.viewLive}
-                </a>
-              )}
-              {project.appStoreUrl && (
-                <a
-                  href={project.appStoreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.outlineLink}
-                >
-                  App Store
-                </a>
-              )}
-              {project.githubUrl && !project.githubHidden && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.outlineLink}
-                >
-                  {t.projects.viewCode}
-                </a>
-              )}
-            </div>
           </div>
           <div className={styles.headerActions}>
             <button type="button" className={styles.pill} onClick={onPrevious}>
@@ -353,6 +321,38 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               </dl>
             )}
 
+            <div className={styles.links}>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.liveLink}
+                >
+                  {project.liveUrlLabel ? project.liveUrlLabel[language] : t.projects.viewLive}
+                </a>
+              )}
+              {project.appStoreUrl && (
+                <a
+                  href={project.appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.outlineLink}
+                >
+                  App Store
+                </a>
+              )}
+              {project.githubUrl && !project.githubHidden && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.outlineLink}
+                >
+                  {t.projects.viewCode}
+                </a>
+              )}
+            </div>
             <section className={styles.section}>
               <h3 className={styles.sectionTitle}>{t.projects.myRole}</h3>
               <p>{project.role[language]}</p>
