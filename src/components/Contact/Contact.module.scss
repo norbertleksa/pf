@@ -1,255 +1,107 @@
-.contactSection {
-  padding: 6rem 0 10rem 0;
-  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-  background-image: radial-gradient(circle at 20% 50%,
-      rgba(120, 119, 198, 0.3) 0%,
-      transparent 50%),
-    radial-gradient(circle at 80% 20%,
-      rgba(255, 119, 198, 0.3) 0%,
-      transparent 50%),
-    radial-gradient(circle at 40% 80%,
-      rgba(120, 219, 255, 0.3) 0%,
-      transparent 50%);
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s ease;
+/* own colour block: dark in the dark theme, a yellow sign in the light one
+   (section.* to outrank the global .section background) */
+section.contact {
+  background: var(--contact-bg);
+  color: var(--contact-ink);
+
+  :global(.eyebrow) {
+    color: var(--contact-accent);
+  }
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.sectionTitle {
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: white;
-  transition: color 0.3s ease;
-}
-
-.sectionSubtitle {
-  font-size: 1.25rem;
-  text-align: center;
-  margin-bottom: 4rem;
-  color: rgba(255, 255, 255, 0.8);
-  transition: color 0.3s ease;
-}
-
-.contactGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.contactCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
   display: flex;
-  align-items: center;
-  position: relative;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.heading {
+  font-size: clamp(3.5rem, 10vw, 8.75rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--contact-ink);
+}
+
+.subtitle {
+  max-width: 600px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--contact-muted);
+}
+
+.rows {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--contact-line);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  /* copy button sits on the same bottom line as the value, not centred on the label + value block */
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--contact-line);
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--contact-muted);
+}
+
+.value {
+  font-size: clamp(1.375rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--contact-ink);
+  text-decoration: none;
+  overflow-wrap: anywhere;
 
   &:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--contact-accent);
   }
 }
 
-
-
-.contactIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  flex-shrink: 0;
-}
-
-.icon {
-  font-size: 1.5rem;
-}
-
-.contactContent {
-  flex: 1;
-}
-
-.contactLabel {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 0.5rem 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.contactValue {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contactValue:hover {
-  color: #667eea;
-}
-
-/* Light theme styles */
-[data-theme='light'] .contactSection {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  background-image: radial-gradient(circle at 20% 50%,
-      rgba(120, 119, 198, 0.1) 0%,
-      transparent 50%),
-    radial-gradient(circle at 80% 20%,
-      rgba(255, 119, 198, 0.1) 0%,
-      transparent 50%),
-    radial-gradient(circle at 40% 80%,
-      rgba(120, 219, 255, 0.1) 0%,
-      transparent 50%);
-}
-
-[data-theme='light'] .sectionTitle {
-  color: var(--text-primary);
-}
-
-[data-theme='light'] .sectionSubtitle {
-  color: var(--text-secondary);
-}
-
-[data-theme='light'] .contactCard {
-  background: rgba(22, 56, 83, 0.1);
-  border-color: rgba(22, 56, 83, 0.2);
-  color: inherit;
-}
-
-[data-theme='light'] .contactCard:hover {
-  background: rgba(22, 56, 83, 0.15);
-  border-color: rgba(22, 56, 83, 0.3);
-  color: inherit;
-}
-
-[data-theme='light'] .contactLabel {
-  color: var(--text-secondary);
-}
-
-[data-theme='light'] .contactValue {
-  color: var(--text-primary);
-}
-
-[data-theme='light'] .contactValue:hover {
-  color: #667eea;
-}
-
-[data-theme='light'] .copyButton {
-  color: var(--text-secondary);
-  border-color: rgba(22, 56, 83, 0.2);
-}
-
-[data-theme='light'] .copyButton:hover {
-  background: rgba(22, 56, 83, 0.1);
-  color: #667eea;
-}
-
-.cardLink {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  text-decoration: none;
-  color: inherit;
+.valueLarge {
+  font-size: clamp(1.5rem, 4.4vw, 3.5rem);
+  letter-spacing: -0.02em;
 }
 
 .copyButton {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.7);
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid var(--contact-outline);
+  background: transparent;
+  color: var(--contact-ink);
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 1rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 
+  /* same lift as the hero CTA */
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    transform: scale(1.05);
+    border-color: var(--contact-accent);
+    transform: translateY(-2px);
   }
 }
 
-.copyIconSuccess {
-  color: #4ade80;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .contactSection {
-    padding: 4rem 0 8rem 0;
-  }
-
-  .container {
-    padding: 0 1rem;
-  }
-
-  .sectionTitle {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .sectionSubtitle {
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-  }
-
-  .contactGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .contactCard {
-    padding: 1.5rem 1rem; // Reduced horizontal padding
-    gap: 1rem;
-  }
-
-  .contactIcon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .icon {
-    font-size: 1.25rem;
-  }
-
-  .contactLabel {
-    font-size: 0.8rem;
-  }
-
-  .contactValue {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .contactCard {
-    padding: 1rem;
-  }
+.copyPrimary {
+  border-color: var(--contact-fill);
+  background: var(--contact-fill);
+  color: var(--contact-on-fill);
 }

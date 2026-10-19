@@ -6,18 +6,16 @@ export interface Translations {
     hero: string
     projects: string
     skills: string
-    about: string
-    courses: string
-    languages: string
     contact: string
   }
   hero: {
     headline: string
-    subheadline: string
     description: string
     achievements: Array<{ text: string; details: string }>
     scheduleCall: string
     callMe: string
+    readMore: string
+    readLess: string
   }
   projects: {
     title: string
@@ -27,6 +25,18 @@ export interface Translations {
     technologies: string
     achievements: string
     myRole: string
+    close: string
+    all: string
+    wide: string
+    mobile: string
+    allScreenshots: string
+    backToViewer: string
+    screenshot: string
+    previousScreenshot: string
+    nextScreenshot: string
+    gallery: string
+    details: string
+    otherProjects: string
   }
   skills: {
     title: string
@@ -40,7 +50,6 @@ export interface Translations {
     other: string
   }
   about: {
-    title: string
     content: string
   }
   courses: {
@@ -57,16 +66,52 @@ export interface Translations {
   contact: {
     title: string
     subtitle: string
+    heading: string
     email: string
     phone: string
+    copy: string
+    copied: string
   }
   footer: {
     copyright: string
+    backToTop: string
+  }
+  retro: {
+    marquee: string
+    title: string
+    clickMe: string
+    underConstruction: string
+    visitor: string
+    justYou: string
+    navigation: string
+    aboutMe: string
+    aboutText: string
+    myProjects: string
+    clickProject: string
+    skills: string
+    guestbook: string
+    emailMe: string
+    orCall: string
+    nowPlaying: string
+    bestViewed: string
   }
   common: {
     language: string
+    lightMode: string
+    darkMode: string
   }
 }
+
+// Years since starting as a developer (1 June 2021), so the copy never goes stale
+const careerStart = new Date(2021, 5, 1)
+const now = new Date()
+const years =
+  now.getFullYear() -
+  careerStart.getFullYear() -
+  (now < new Date(now.getFullYear(), careerStart.getMonth(), careerStart.getDate()) ? 1 : 0)
+// Polish plural: 2–4 lata (except 12–14), otherwise lat
+const yearsPl =
+  years % 10 >= 2 && years % 10 <= 4 && (years % 100 < 12 || years % 100 > 14) ? 'lata' : 'lat'
 
 export const translations: Record<Language, Translations> = {
   pl: {
@@ -75,21 +120,16 @@ export const translations: Record<Language, Translations> = {
       hero: 'Start',
       projects: 'Projekty',
       skills: 'Umiejętności',
-      about: 'O mnie',
-      courses: 'Kursy',
-      languages: 'Języki',
       contact: 'Kontakt',
     },
     hero: {
-      headline: 'Ekspert Frontend Developer',
-      subheadline: 'Budowanie skalowalnych produktów web i mobile',
+      headline: 'Senior Software Developer',
       description:
-        'Frontend Developer tworzący skalowalne aplikacje webowe w React/Next.js i funkcjonalności mobilne we Flutterze. Dostarczam produkty obsługujące dziesiątki tysięcy użytkowników i osiągam mierzalne rezultaty biznesowe.',
+        'Senior Software Developer tworzący skalowalne aplikacje webowe w React/Next.js i funkcjonalności mobilne we Flutterze. Dostarczam produkty obsługujące dziesiątki tysięcy użytkowników i osiągam mierzalne rezultaty biznesowe.',
       achievements: [
         {
-          text: '4+ lata doświadczenia',
-          details:
-            'Ponad 4 lata komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).',
+          text: `${years}+ ${yearsPl} doświadczenia`,
+          details: `Ponad ${years} ${yearsPl} komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).`,
         },
         {
           text: '55k+ aktywnych użytkowników',
@@ -109,15 +149,29 @@ export const translations: Record<Language, Translations> = {
       ],
       scheduleCall: 'Umów Rozmowę',
       callMe: 'Zadzwoń',
+      readMore: 'Dowiedz się więcej',
+      readLess: 'Zwiń',
     },
     projects: {
       title: 'Projekty',
       subtitle: 'Kliknij projekt, aby zobaczyć szczegóły.',
       viewLive: 'Zobacz Live',
       viewCode: 'Zobacz Kod',
-      technologies: 'Technologie:',
-      achievements: 'Osiągnięcia:',
-      myRole: 'Moja rola:',
+      technologies: 'Technologie',
+      achievements: 'Osiągnięcia',
+      myRole: 'Moja rola',
+      close: 'Zamknij',
+      all: 'Wszystkie',
+      wide: 'Desktop i tablet',
+      mobile: 'Mobile',
+      allScreenshots: 'Wszystkie zrzuty',
+      backToViewer: 'Wróć do podglądu',
+      screenshot: 'Zrzut',
+      previousScreenshot: 'Poprzedni zrzut',
+      nextScreenshot: 'Następny zrzut',
+      gallery: 'Galeria',
+      details: 'Szczegóły i zrzuty',
+      otherProjects: 'Pozostałe projekty',
     },
     skills: {
       title: 'Umiejętności',
@@ -131,17 +185,17 @@ export const translations: Record<Language, Translations> = {
       other: 'Inne',
     },
     about: {
-      title: 'O mnie',
-      content:
-        'Jestem Frontend Developerem z 4+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.',
+      content: `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
     },
     courses: {
-      title: 'Kursy',
+      title: 'Kursy i certyfikaty',
       list: [
+        "Contentful Certified Professional '26",
+        "Sanity Certified Developer '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
-        "EPAM end Webinar '20",
+        "EPAM Frontend Webinar '20",
         "Codebrainers Fullstack Bootcamp '19",
       ],
     },
@@ -149,20 +203,49 @@ export const translations: Record<Language, Translations> = {
       title: 'Języki',
       list: [
         { name: 'Angielski', level: 'C2' },
-        { name: 'Polski', level: 'Native' },
+        { name: 'Polski', level: 'Ojczysty' },
+        { name: 'Hiszpański', level: 'B1' },
       ],
     },
     contact: {
       title: 'Kontakt',
-      subtitle: 'Skontaktuj się ze mną',
+      heading: 'Porozmawiajmy.',
+      subtitle:
+        'Szukam roli Senior Software Developera — tylko zdalnie. Najszybciej odpowiadam na maila.',
       email: 'Email',
       phone: 'Telefon',
+      copy: 'Kopiuj',
+      copied: 'Skopiowano',
     },
     footer: {
       copyright: '© {{year}} Norbert Leksa. Wszelkie prawa zastrzeżone.',
+      backToTop: 'Na górę',
+    },
+    retro: {
+      marquee:
+        '*** WITAJ NA STRONIE DOMOWEJ NORBERTA *** DZIĘKI ZA ODWIEDZINY *** WPISZ SIĘ DO KSIĘGI GOŚCI!!! *** TERAZ Z 3 CASE STUDIES ***',
+      title: 'Strona domowa Norberta Leksy',
+      clickMe: '← kliknij, żeby wrócić!',
+      underConstruction: 'STRONA W BUDOWIE',
+      visitor: 'Jesteś gościem nr',
+      justYou: '(to tylko Ty, cześć!)',
+      navigation: 'NAWIGACJA',
+      aboutMe: 'O mnie',
+      aboutText:
+        'Cześć!!! Buduję skalowalne aplikacje webowe w React/Next.js i funkcje mobilne we Flutterze. Z moich rzeczy korzystają dziesiątki tysięcy ludzi. Dzięki, że wpadłeś do mojego kącika sieci!',
+      myProjects: 'Moje projekty',
+      clickProject: '(kliknij projekt, żeby zobaczyć zrzuty!)',
+      skills: 'Umiejętności i certyfikaty',
+      guestbook: 'Wpisz się do księgi gości!!',
+      emailMe: 'Napisz do mnie!',
+      orCall: 'albo zadzwoń:',
+      nowPlaying: '♪ TERAZ GRA',
+      bestViewed: 'Najlepiej oglądać w Netscape Navigator 4.0 w 800×600',
     },
     common: {
       language: 'Język',
+      lightMode: 'Tryb jasny',
+      darkMode: 'Tryb ciemny',
     },
   },
   en: {
@@ -171,21 +254,16 @@ export const translations: Record<Language, Translations> = {
       hero: 'Home',
       projects: 'Projects',
       skills: 'Skills',
-      about: 'About',
-      courses: 'Courses',
-      languages: 'Languages',
       contact: 'Contact',
     },
     hero: {
-      headline: 'Expert Frontend Developer',
-      subheadline: 'Building scalable web & mobile products',
+      headline: 'Senior Software Developer',
       description:
-        'Frontend Developer building scalable web apps in React/Next.js and mobile features in Flutter. I ship products serving tens of thousands of users and deliver measurable business outcomes',
+        'Senior Software Developer building scalable web apps in React/Next.js and mobile features in Flutter. I ship products serving tens of thousands of users and deliver measurable business outcomes',
       achievements: [
         {
-          text: '4+ years of experience',
-          details:
-            '4+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).',
+          text: `${years}+ years of experience`,
+          details: `${years}+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).`,
         },
         {
           text: '55k+ active users',
@@ -205,15 +283,29 @@ export const translations: Record<Language, Translations> = {
       ],
       scheduleCall: 'Schedule A Call',
       callMe: 'Call Me',
+      readMore: 'Learn more',
+      readLess: 'Show less',
     },
     projects: {
       title: 'Projects',
       subtitle: 'Click on a project to see details.',
       viewLive: 'View Live',
       viewCode: 'View Code',
-      technologies: 'Technologies:',
-      achievements: 'Achievements:',
-      myRole: 'My Role:',
+      technologies: 'Technologies',
+      achievements: 'Achievements',
+      myRole: 'My role',
+      close: 'Close',
+      all: 'All',
+      wide: 'Desktop & tablet',
+      mobile: 'Mobile',
+      allScreenshots: 'All screenshots',
+      backToViewer: 'Back to viewer',
+      screenshot: 'Screenshot',
+      previousScreenshot: 'Previous screenshot',
+      nextScreenshot: 'Next screenshot',
+      gallery: 'Gallery',
+      details: 'Details & screenshots',
+      otherProjects: 'Other projects',
     },
     skills: {
       title: 'Skills',
@@ -227,17 +319,17 @@ export const translations: Record<Language, Translations> = {
       other: 'Other',
     },
     about: {
-      title: 'About Me',
-      content:
-        'I’m a Frontend Developer with 4+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.',
+      content: `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
     },
     courses: {
-      title: 'Courses',
+      title: 'Courses & certificates',
       list: [
+        "Contentful Certified Professional '26",
+        "Sanity Certified Developer '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
-        "EPAM end Webinar '20",
+        "EPAM Frontend Webinar '20",
         "Codebrainers Fullstack Bootcamp '19",
       ],
     },
@@ -246,19 +338,48 @@ export const translations: Record<Language, Translations> = {
       list: [
         { name: 'English', level: 'C2' },
         { name: 'Polish', level: 'Native' },
+        { name: 'Spanish', level: 'B1' },
       ],
     },
     contact: {
       title: 'Contact',
-      subtitle: 'Get in touch with me',
+      heading: "Let's talk.",
+      subtitle:
+        'Looking for a Senior Software Developer role — remote only. Email is the fastest way to reach me.',
       email: 'Email',
       phone: 'Phone',
+      copy: 'Copy',
+      copied: 'Copied',
     },
     footer: {
       copyright: '© {{year}} Norbert Leksa. All rights reserved.',
+      backToTop: 'Back to top',
+    },
+    retro: {
+      marquee:
+        "*** WELCOME TO NORBERT'S HOMEPAGE *** THANKS FOR STOPPING BY *** SIGN MY GUESTBOOK!!! *** NOW WITH 3 CASE STUDIES ***",
+      title: "Norbert Leksa's Homepage",
+      clickMe: '← click me to go back!',
+      underConstruction: 'UNDER CONSTRUCTION',
+      visitor: 'You are visitor no.',
+      justYou: "(it's just you, hi!)",
+      navigation: 'NAVIGATION',
+      aboutMe: 'About me',
+      aboutText:
+        'Hi!!! I build scalable web apps in React/Next.js and mobile features in Flutter. My stuff is used by tens of thousands of people. Thanks for visiting my corner of the web!',
+      myProjects: 'My Projects',
+      clickProject: '(click a project to see the screenshots!)',
+      skills: 'Skills & Certificates',
+      guestbook: 'Sign my Guestbook!!',
+      emailMe: 'E-mail me!',
+      orCall: 'or call:',
+      nowPlaying: '♪ NOW PLAYING',
+      bestViewed: 'Best viewed in Netscape Navigator 4.0 at 800×600',
     },
     common: {
       language: 'Language',
+      lightMode: 'Light mode',
+      darkMode: 'Dark mode',
     },
   },
 }

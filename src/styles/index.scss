@@ -25,211 +25,128 @@ html {
 }
 
 body {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Sora', sans-serif;
 }
 
 .app {
   min-height: 100vh;
 }
 
-/* Light theme (default) */
+:root {
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --page-width: 1240px;
+  --page-gutter: 24px;
+}
+
+/* Light theme (default): cool station white with black-and-yellow signage */
 :root,
 [data-theme='light'] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: rgba(255, 255, 255, 0.1);
-  --text-primary: #1a202c;
-  --text-secondary: #4a5568;
-  --border-color: #e2e8f0;
+  --bg-primary: #eceef1;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #dfe3e8;
+  --text-primary: #0e1013;
+  --text-secondary: #2c3138;
+  --text-muted: #545b65;
+  --border-color: #cdd2d9;
+  --border-strong: #8f97a3;
+  /* accent as text (labels, numbers); yellow is only used as a fill or on dark */
+  --accent: #7a4a00;
+  --on-accent: #ffffff;
   --shadow: rgba(0, 0, 0, 0.1);
+
+  --fill: #0e1013;
+  --on-fill: #f5b83d;
+  --underline: #0e1013;
+  --flap-top: #22252b;
+  --flap-bottom: #16181c;
+  --flap-ink: #f3f1ea;
+  --flap-accent: #f5b83d;
+  --flap-border: transparent;
+  --chip-bg: #0e1013;
+  --chip-ink: #f5b83d;
+  --chip-border: #0e1013;
+  --contact-bg: #f5b83d;
+  --contact-ink: #0e1013;
+  --contact-muted: #3a3320;
+  --contact-line: #d39a22;
+  --contact-accent: #0e1013;
+  --contact-outline: #0e1013;
+  --contact-fill: #0e1013;
+  --contact-on-fill: #f5b83d;
 }
 
 /* Dark theme */
 [data-theme='dark'] {
-  --bg-primary: #1a202c;
-  --bg-secondary: #2d3748;
-  --text-primary: #f7fafc;
-  --text-secondary: #a0aec0;
-  --border-color: #4a5568;
+  /* night version of the light "platform" theme: same yellow signage, deep black */
+  --bg-primary: #0b0c0e;
+  --bg-secondary: #1a1c21;
+  --bg-tertiary: #202228;
+  --text-primary: #f3f1ea;
+  --text-secondary: #c9c7bf;
+  --text-muted: #a3a39c;
+  --border-color: #24262c;
+  --border-strong: #3a3c44;
+  --accent: #f5b83d;
+  --on-accent: #0b0c0e;
   --shadow: rgba(0, 0, 0, 0.3);
+
+  --fill: #f5b83d;
+  --on-fill: #0b0c0e;
+  --underline: #f5b83d;
+  --flap-top: #202228;
+  --flap-bottom: #16171b;
+  --flap-ink: #f3f1ea;
+  --flap-accent: #f5b83d;
+  --flap-border: #2e3138;
+  --chip-bg: #f5b83d;
+  --chip-ink: #0b0c0e;
+  --chip-border: #f5b83d;
+  --contact-bg: #f5b83d;
+  --contact-ink: #0b0c0e;
+  --contact-muted: #3a3320;
+  --contact-line: #d39a22;
+  --contact-accent: #0b0c0e;
+  --contact-outline: #0b0c0e;
+  --contact-fill: #0b0c0e;
+  --contact-on-fill: #f5b83d;
 }
 
-/* Retro 90s Easter Egg theme */
-[data-theme='retro90s'] {
-  --bg-primary: #000080;
-  --bg-secondary: #008080;
-  --bg-tertiary: rgba(255, 0, 255, 0.2);
-  --text-primary: #ffff00;
-  --text-secondary: #00ff00;
-  --border-color: #ff00ff;
-  --shadow: rgba(255, 0, 255, 0.5);
+/* Shared section heading pieces */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-[data-theme='retro90s'] body {
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive !important;
-  background-image:
-    repeating-linear-gradient(0deg,
-      transparent,
-      transparent 2px,
-      rgba(255, 0, 255, 0.03) 2px,
-      rgba(255, 0, 255, 0.03) 4px),
-    repeating-linear-gradient(90deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 255, 255, 0.03) 2px,
-      rgba(0, 255, 255, 0.03) 4px);
-  cursor: crosshair;
+.section-title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
-[data-theme='retro90s'] *:not(svg):not(path) {
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive !important;
-  border-radius: 0 !important;
+/* keep anchored sections clear of the fixed top bar */
+section[id] {
+  scroll-margin-top: 72px;
 }
 
-[data-theme='retro90s'] h1,
-[data-theme='retro90s'] h2,
-[data-theme='retro90s'] h3,
-[data-theme='retro90s'] h4,
-[data-theme='retro90s'] h5,
-[data-theme='retro90s'] h6 {
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive !important;
-  text-shadow: 2px 2px #ff00ff, -1px -1px #00ffff;
-  animation: retro-blink 1.5s steps(2, start) infinite;
+.section {
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-primary);
 }
 
-[data-theme='retro90s'] a {
-  color: #ff00ff !important;
-  text-decoration: underline !important;
-}
+.section-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 96px var(--page-gutter);
 
-[data-theme='retro90s'] a:hover {
-  color: #ffff00 !important;
-  background-color: #ff0000 !important;
-}
-
-[data-theme='retro90s'] button {
-  border: 3px outset #c0c0c0 !important;
-  background: linear-gradient(180deg, #c0c0c0, #808080) !important;
-  color: #000000 !important;
-  text-shadow: none !important;
-  cursor: pointer;
-  animation: none !important;
-}
-
-[data-theme='retro90s'] button a {
-  text-decoration: none !important;
-  text-shadow: none !important;
-  color: #02ffe1 !important;
-}
-
-[data-theme='retro90s'] button:hover a {
-  color: #6bec08 !important;
-}
-
-[data-theme='retro90s'] button[aria-hidden] {
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-[data-theme='retro90s'] button:active {
-  border-style: inset !important;
-}
-
-[data-theme='retro90s'] img {
-  border: 3px solid #ff00ff !important;
-  box-shadow: 5px 5px 0px #00ffff !important;
-}
-
-[data-theme='retro90s'] [class*='techTag'] {
-  background: #008080 !important;
-  color: #ffff00 !important;
-  border: 2px solid #00ff00 !important;
-  font-weight: 700 !important;
-}
-
-[data-theme='retro90s'] section,
-[data-theme='retro90s'] [class*='container'],
-[data-theme='retro90s'] [class*='card'],
-[data-theme='retro90s'] [class*='Card'] {
-  border: 2px solid #00ff00 !important;
-  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1) !important;
-}
-
-[data-theme='retro90s'] ::selection {
-  background: #ff00ff;
-  color: #ffff00;
-}
-
-@keyframes retro-blink {
-  0% {
-    opacity: 1;
-  }
-
-  49% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
-
-  100% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes retro-marquee {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes retro-rainbow {
-  0% {
-    color: #ff0000;
-  }
-
-  16% {
-    color: #ff8800;
-  }
-
-  33% {
-    color: #ffff00;
-  }
-
-  50% {
-    color: #00ff00;
-  }
-
-  66% {
-    color: #0000ff;
-  }
-
-  83% {
-    color: #ff00ff;
-  }
-
-  100% {
-    color: #ff0000;
+  @media (max-width: 768px) {
+    padding: 64px var(--page-gutter);
   }
 }
 

@@ -1,22 +1,28 @@
-import About from './components/About/About'
 import Contact from './components/Contact/Contact'
-import Courses from './components/Courses/Courses'
 import HeroSection from './components/HeroSection/HeroSection'
-import Languages from './components/Languages/Languages'
 import Projects from './components/Projects/Projects'
 import Skills from './components/Skills/Skills'
 
+import { useEffect } from 'react'
 import Footer from './components/Footer/Footer'
+import RetroHomepage from './components/RetroHomepage/RetroHomepage'
+import { stopRetroMusic, useIsRetro } from './utils/retro'
 
 function App() {
+  const isRetro = useIsRetro()
+
+  // music belongs to retro mode only, however it was left
+  useEffect(() => {
+    if (!isRetro) stopRetroMusic()
+  }, [isRetro])
+
+  if (isRetro) return <RetroHomepage />
+
   return (
     <div className="app">
       <HeroSection />
       <Projects />
       <Skills />
-      <About />
-      <Courses />
-      <Languages />
       <Contact />
       <Footer />
     </div>

@@ -1,0 +1,172 @@
+.featured {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 48px;
+}
+
+/* every other case study puts the picture on the right; on narrow screens it still comes first */
+.reversed {
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+
+  @media (max-width: 1000px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.cover {
+  position: relative;
+  flex: 1 1 440px;
+  min-width: 0;
+  height: 460px;
+  padding: 32px 32px 0;
+  border: 0;
+  border-radius: 20px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  picture {
+    display: contents;
+  }
+
+  &:hover .coverImage {
+    transform: translateY(-6px);
+  }
+
+  @media (max-width: 768px) {
+    height: 340px;
+    padding: 20px 20px 0;
+  }
+}
+
+.coverImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.coverFill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: left top;
+  border-radius: 0;
+}
+
+.galleryBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.body {
+  flex: 1 1 440px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metricAccent {
+  color: var(--accent);
+}
+
+.metricLabel {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.techList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techTag {
+  padding: 6px 12px;
+  border: 1px solid var(--chip-border);
+  border-radius: 999px;
+  background: var(--chip-bg);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--chip-ink);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--underline);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linkMuted {
+  border-bottom-color: var(--border-strong);
+}

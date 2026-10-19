@@ -1,82 +1,176 @@
 .heroSection {
   min-height: 100vh;
-  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-  background-image: radial-gradient(circle at 20% 50%,
-      rgba(120, 119, 198, 0.3) 0%,
-      transparent 50%),
-    radial-gradient(circle at 80% 20%,
-      rgba(255, 119, 198, 0.3) 0%,
-      transparent 50%),
-    radial-gradient(circle at 40% 80%,
-      rgba(120, 219, 255, 0.3) 0%,
-      transparent 50%);
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
   z-index: 1;
   display: flex;
+  /* top-aligned (not centered) so expanding "learn more" only pushes content down */
   align-items: flex-start;
-}
-
-@media (min-width: 768px) {
-  .heroSection {
-    padding-top: 6rem;
-  }
+  padding: clamp(120px, 18vh, 200px) 0 96px;
 }
 
 .content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem 4rem;
-  gap: 1rem;
+  max-width: var(--page-width);
   width: 100%;
-}
-
-.textContent {
-  flex: 1;
-  max-width: 600px;
-  z-index: 2;
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 64px;
 }
 
-.nameContainer {
-  margin-bottom: 2rem;
-}
+/* Split-flap monogram */
+.monogram {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  flex: 0 0 auto;
 
-.name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: white;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-/* Light theme text colors */
-[data-theme='light'] .name {
-  color: var(--text-primary);
-}
-
-/* Desktop profile image alignment */
-@media (min-width: 768px) {
-  .profileImage {
-    margin-top: 2rem;
-    /* Optically align with text content */
+  /* side by side with the text: sit a bit lower; stacked on mobile it stays at the top */
+  @media (min-width: 769px) {
+    margin-top: 40px;
   }
 }
 
-.headline {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: white;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-  margin-top: 1rem;
+/* Easter egg: a pisanka tucked behind the L tile, peeking out of its top-right corner */
+.egg {
+  position: absolute;
+  z-index: 0;
+  right: -6px;
+  top: -6px;
+  width: clamp(48px, 7vw, 72px);
+  aspect-ratio: 100 / 128;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transform: translate(10%, -38%) rotate(18deg);
+  transform-origin: 50% 90%;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: egg-wiggle 6s ease-in-out infinite;
+    transform-origin: 50% 90%;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translate(28%, -62%) rotate(26deg);
+
+    svg {
+      animation: none;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+}
+
+@keyframes egg-wiggle {
+  0%,
+  86%,
+  100% {
+    transform: rotate(0);
+  }
+
+  89% {
+    transform: rotate(-9deg);
+  }
+
+  92% {
+    transform: rotate(7deg);
+  }
+
+  95% {
+    transform: rotate(-4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .egg,
+  .egg svg {
+    animation: none;
+    transition: none;
+  }
+}
+
+.flap {
   position: relative;
-  text-transform: uppercase;
+  z-index: 1;
+  width: clamp(130px, 26vw, 210px);
+  aspect-ratio: 10 / 13;
+  border-radius: 16px;
+  background: linear-gradient(var(--flap-top) 0 50%, var(--flap-bottom) 50% 100%);
+  border: 1px solid var(--flap-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: clamp(104px, 21vw, 180px);
+  line-height: 1;
+  color: var(--flap-ink);
+
+  /* the hinge line */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% - 1px);
+    height: 3px;
+    background: var(--bg-primary);
+  }
+}
+
+.flapAccent {
+  color: var(--flap-accent);
+}
+
+/* one flip of the board: the new character swings down into place */
+.flapChar {
+  display: block;
+  animation: flap-flip 70ms ease-out;
+}
+
+@keyframes flap-flip {
+  from {
+    transform: perspective(400px) rotateX(-80deg);
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flapChar {
+    animation: none;
+  }
+}
+
+.textContent {
+  flex: 1 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.name {
+  /* narrow box makes the name break onto two lines; glitch layers wrap the same way */
+  max-width: 8ch;
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  position: relative;
 
   &::before,
   &::after {
@@ -113,7 +207,7 @@
 
   @for $i from 0 through $steps {
     #{percentage($i * (1 / $steps))} {
-      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+      clip: rect(random(180) + px, 9999px, random(180) + px, 0);
       transform: skew((random(5) / 100) + deg);
     }
   }
@@ -124,158 +218,139 @@
 
   @for $i from 0 through $steps {
     #{percentage($i * (1 / $steps))} {
-      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+      clip: rect(random(180) + px, 9999px, random(180) + px, 0);
       transform: skew((random(5) / 100) + deg);
     }
   }
 }
 
-/* Light theme glitch adjustments */
-[data-theme='light'] .headline {
-  color: var(--text-primary);
-
-  &.glitching {
-    &::before {
-      text-shadow: -2px 0 #ff00c1;
-    }
-
-    &::after {
-      text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .name.glitching::before,
+  .name.glitching::after {
+    animation: none;
+    opacity: 0;
   }
-}
-
-.subheadline {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.1;
-  color: white;
-  margin-bottom: 2rem;
-  letter-spacing: -0.02em;
-}
-
-.achievements {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 3rem;
-  max-width: 600px;
-  align-items: start;
-}
-
-.achievements li {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 0.5rem;
-  max-width: 500px;
-}
-
-/* Light theme text colors */
-[data-theme='light'] .headline {
-  color: var(--text-primary);
-}
-
-[data-theme='light'] .subheadline {
-  color: var(--text-primary);
 }
 
 .description {
+  max-width: 560px;
   font-size: 1.25rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2.5rem;
-  max-width: 500px;
-}
-
-/* Light theme text colors */
-[data-theme='light'] .description {
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
-.ctaButton {
-  background: #163853;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+/* Collapsible "learn more": animating grid rows 0fr → 1fr gives a smooth height change */
+.moreWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  /* cancel the parent's flex gap while collapsed */
+  margin-top: -24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease,
+    visibility 0.3s;
+}
+
+.moreOpen {
+  grid-template-rows: 1fr;
+  margin-top: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moreWrap {
+    transition: none;
+  }
+}
+
+.more {
+  min-height: 0;
+  overflow: hidden;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.moreToggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: -12px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--underline);
+  color: var(--text-primary);
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 14px 0 #163853;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.achievements {
+  list-style: none;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+  align-items: start;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--fill);
+  color: var(--on-fill);
+  border: 0;
+  transition: transform 0.2s ease;
 
   &:hover {
-    background: #0e2335;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px 0 #0e2335;
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 }
-
-
 
 @media (max-width: 768px) {
+  .heroSection {
+    padding: 88px 0 64px;
+  }
+
   .content {
-    flex-direction: column;
-    text-align: center;
-    padding: 4rem 1rem 2rem;
-    gap: 2rem;
-    justify-content: center;
-    min-height: 100vh;
-    align-items: center;
+    gap: 40px;
   }
 
-  .textContent {
-    max-width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nameContainer {
-    padding-top: 0;
-    margin-bottom: 2rem;
-  }
-
-  .name {
-    font-size: 2.5rem;
-    margin-bottom: 0;
-  }
-
-  .headline {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .subheadline {
-    font-size: 1.25rem;
-    margin-top: 1rem;
-  }
-
-  .description {
-    font-size: 1.1rem;
-  }
-
-  .profileImage {
-    display: none;
-  }
-}
-
-/* For taller screens (large monitors), add extra top padding for visual balance */
-@media (min-height: 1024px) {
-  .content {
-    padding-top: 20dvh;
-  }
-}
-
-@media (min-width: 768px) {
-  .name {
-    display: none;
+  .achievements {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

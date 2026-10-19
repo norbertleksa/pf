@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Norbert Leksa</title>
+  <!-- GitHub Pages serves this file for unknown paths. Links are absolute because the
+       missing page can sit at any depth; /pf/ must match `base` in vite.config.ts -->
+  <link rel="icon" type="image/svg+xml" href="/pf/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #0f1013;
+      color: #f3f1ea;
+      font-family: 'Archivo', system-ui, sans-serif;
+    }
+    a { color: inherit; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-bottom: 1px solid #2a2c33;
+      text-decoration: none;
+    }
+    .logo { display: flex; gap: 4px; }
+    .logo span {
+      width: 28px; height: 36px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(#26272e 0 50%, #1b1c22 50% 100%);
+      font-weight: 700; font-size: 22px;
+    }
+    .logo span + span { color: #f5b83d; }
+    header b { font-size: 18px; font-weight: 600; }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 48px 16px;
+    }
+    .board {
+      max-width: 100%;
+      overflow-x: auto;
+      padding: 24px 28px;
+      background: #08090b;
+      border: 1px solid #2a2c33;
+      border-radius: 20px;
+    }
+    .board-head {
+      display: flex; justify-content: space-between; gap: 24px;
+      padding-bottom: 14px;
+      font-size: 15px; letter-spacing: 0.18em; color: #f5b83d;
+    }
+    .board-head span { color: #a3a39c; letter-spacing: 0.08em; }
+    .cols, .row { display: flex; gap: 20px; }
+    .cols { padding: 0 2px 8px; font-size: 11px; letter-spacing: 0.1em; color: #a3a39c; }
+    .row { padding: 4px 2px; border-radius: 8px; text-decoration: none; }
+    .row:hover, .row:focus-visible { background: #17181d; outline: none; }
+    .cell { display: flex; gap: 4px; font-size: 22px; font-weight: 700; }
+    .time { width: 128px; } .dest { width: 448px; } .gate { width: 64px; } .status { width: 288px; }
+    .tile {
+      position: relative;
+      width: 28px; height: 40px; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(#24252c 0 50%, #1b1c22 50% 100%);
+    }
+    .tile::after {
+      content: ''; position: absolute; left: 0; right: 0; top: 19px; height: 2px; background: #08090b;
+    }
+    .cancelled { color: #ff7a59; }
+    .ok { color: #f5b83d; }
+
+    .message { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+    .message h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
+    .message p { max-width: 560px; font-size: 18px; line-height: 1.5; color: #c9c7bf; }
+    .home {
+      margin-top: 8px; min-height: 52px; padding: 0 28px; border-radius: 999px;
+      display: inline-flex; align-items: center;
+      background: #f5b83d; color: #0f1013; font-weight: 600; text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <a href="/pf/" style="text-decoration: none">
+    <header>
+      <span class="logo mono" aria-hidden="true"><span>N</span><span>L</span></span>
+      <b>Norbert Leksa</b>
+    </header>
+  </a>
+
+  <main>
+    <div class="board mono">
+      <div class="board-head"><strong>DEPARTURES · ODJAZDY</strong><span>ERROR 404</span></div>
+      <div class="cols" aria-hidden="true">
+        <span class="time">TIME</span><span class="dest">DESTINATION</span><span class="gate">GATE</span><span>STATUS</span>
+      </div>
+      <a class="row" href="/pf/" aria-label="This page: cancelled. Back to home">
+        <span class="cell time" >404</span><span class="cell dest" >/THIS-PAGE</span><span class="cell gate" >--</span><span class="cell status cancelled" >CANCELLED</span>
+      </a>
+      <a class="row" href="/pf/#projects" aria-label="Go to projects">
+        <span class="cell time" >NOW</span><span class="cell dest" >PROJECTS</span><span class="cell gate" >1</span><span class="cell status ok" >ON TIME</span>
+      </a>
+      <a class="row" href="/pf/#skills" aria-label="Go to skills">
+        <span class="cell time" >NOW</span><span class="cell dest" >SKILLS</span><span class="cell gate" >2</span><span class="cell status ok" >ON TIME</span>
+      </a>
+      <a class="row" href="/pf/#contact" aria-label="Go to contact">
+        <span class="cell time" >NOW</span><span class="cell dest" >CONTACT</span><span class="cell gate" >3</span><span class="cell status ok" >BOARDING</span>
+      </a>
+    </div>
+
+    <div class="message">
+      <h1>This page has been cancelled.</h1>
+      <p>The address you followed doesn't exist. Pick another destination from the board, or head back to the start.</p>
+      <a class="home" href="/pf/">Back to home</a>
+    </div>
+  </main>
+
+  <script>
+    // Fill each column with split-flap tiles; on load they roll through letters and settle, like the hero monogram
+    const WIDTH = { time: 4, dest: 14, gate: 2, status: 9 }
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.querySelectorAll('.cell').forEach((cell, c) => {
+      const width = WIDTH[[...cell.classList].find((k) => k in WIDTH)]
+      const chars = cell.textContent.padEnd(width, ' ').slice(0, width).split('')
+      cell.textContent = ''
+      chars.forEach((target, i) => {
+        const tile = document.createElement('span')
+        tile.className = 'tile'
+        tile.textContent = target
+        cell.appendChild(tile)
+        if (still || target === ' ') return
+        const flips = 4 + ((c + i) % 6)
+        for (let f = 0; f <= flips; f++) {
+          setTimeout(() => {
+            tile.textContent = f === flips ? target : ALPHABET[Math.floor(Math.random() * ALPHABET.length)]
+          }, 150 + f * 60 + i * 25)
+        }
+      })
+    })
+  </script>
+</body>
+</html>

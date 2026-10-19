@@ -1,14 +1,47 @@
 import { useEffect, useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { trackEvent } from '../../utils/analytics'
+import { toggleRetro } from '../../utils/retro'
 import ProofChip from '../ProofChip/ProofChip'
 import styles from './HeroSection.module.scss'
-import ProfileImage from './ProfileImage/ProfileImage'
 import TopBar from './TopBar/TopBar'
+
+const FLAP_TARGET = ['N', 'L']
+const FLAP_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+const randomFlapChar = () => FLAP_ALPHABET[Math.floor(Math.random() * FLAP_ALPHABET.length)]
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const HeroSection = () => {
   const { t } = useLanguage()
   const [isGlitching, setIsGlitching] = useState(true)
+  const [showMore, setShowMore] = useState(false)
+  // each flap: current character + a tick that restarts the flip animation on every change
+  const [flaps, setFlaps] = useState(() =>
+    FLAP_TARGET.map((char) => ({ char: prefersReducedMotion() ? char : ' ', tick: 0 }))
+  )
+
+  // On load the monogram rolls through letters like an old departure board, then settles on NL
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const timers: ReturnType<typeof setTimeout>[] = []
+    FLAP_TARGET.forEach((target, i) => {
+      const steps = 12 + i * 5 // the second flap settles a little later, like a real board
+      for (let step = 1; step <= steps; step++) {
+        timers.push(
+          setTimeout(
+            () =>
+              setFlaps((prev) =>
+                prev.map((flap, j) =>
+                  j === i ? { char: step === steps ? target : randomFlapChar(), tick: step } : flap
+                )
+              ),
+            250 + step * 70
+          )
+        )
+      }
+    })
+    return () => timers.forEach(clearTimeout)
+  }, [])
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
@@ -59,18 +92,95 @@ const HeroSection = () => {
     <section id="hero" className={styles.heroSection}>
       <TopBar />
       <div className={styles.content}>
-        <div className={styles.textContent}>
-          <div className={styles.nameContainer}>
-            <h2 className={styles.name}>{t.topBar.logoText}</h2>
-          </div>
-          <h1
-            className={`${styles.headline} ${isGlitching ? styles.glitching : ''}`}
-            data-text={t.hero.headline}
+        <div className={styles.monogram}>
+          <button
+            type="button"
+            className={styles.egg}
+            onClick={toggleRetro}
+            aria-label="Easter egg"
           >
-            {t.hero.headline}
+            <svg viewBox="0 0 100 128" aria-hidden="true">
+              <defs>
+                <clipPath id="egg-shape">
+                  <path d="M50 4C22 4 6 48 6 76c0 28 20 48 44 48s44-20 44-48C94 48 78 4 50 4Z" />
+                </clipPath>
+              </defs>
+              <g clipPath="url(#egg-shape)">
+                <rect width="100" height="128" fill="#d6402f" />
+                <rect y="44" width="100" height="12" fill="#f5b83d" />
+                <rect y="84" width="100" height="12" fill="#f5b83d" />
+                <path
+                  d="M0 70l8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8"
+                  fill="none"
+                  stroke="#fff6e5"
+                  strokeWidth="4"
+                  strokeLinejoin="round"
+                />
+                <circle cx="30" cy="26" r="5" fill="#fff6e5" />
+                <circle cx="50" cy="20" r="5" fill="#fff6e5" />
+                <circle cx="70" cy="26" r="5" fill="#fff6e5" />
+                <circle cx="35" cy="110" r="4" fill="#fff6e5" />
+                <circle cx="65" cy="110" r="4" fill="#fff6e5" />
+              </g>
+            </svg>
+          </button>
+          {flaps.map((flap, i) => (
+            <span
+              key={FLAP_TARGET[i]}
+              className={`${styles.flap} ${i === 1 ? styles.flapAccent : ''}`}
+              aria-hidden="true"
+            >
+              <span key={flap.tick} className={styles.flapChar}>
+                {flap.char}
+              </span>
+            </span>
+          ))}
+        </div>
+        <div className={styles.textContent}>
+          <p className="eyebrow">{t.hero.headline} · React / Next.js / Flutter</p>
+          <h1
+            className={`${styles.name} ${isGlitching ? styles.glitching : ''}`}
+            data-text={t.topBar.logoText}
+            // the glitch layers repeat the name via CSS content; keep screen readers to one copy
+            aria-label={t.topBar.logoText}
+          >
+            {t.topBar.logoText}
           </h1>
-          <h2 className={styles.subheadline}>{t.hero.subheadline}</h2>
           <p className={styles.description}>{t.hero.description}</p>
+          <div
+            id="about-more"
+            className={`${styles.moreWrap} ${showMore ? styles.moreOpen : ''}`}
+            aria-hidden={!showMore}
+          >
+            <div className={styles.more}>
+              {t.about.content.split('\n\n').map((paragraph) => (
+                <p key={paragraph.slice(0, 10)}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+          <button
+            type="button"
+            className={styles.moreToggle}
+            onClick={() => setShowMore(!showMore)}
+            aria-expanded={showMore}
+            aria-controls="about-more"
+          >
+            {showMore ? t.hero.readLess : t.hero.readMore}
+            <svg
+              className={showMore ? styles.chevronOpen : ''}
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
           <ul className={styles.achievements}>
             {t.hero.achievements.map((achievement) => (
               <li key={achievement.text.slice(0, 10)}>
@@ -78,23 +188,22 @@ const HeroSection = () => {
               </li>
             ))}
           </ul>
-          <button
-            type="button"
-            className={styles.ctaButton}
-            onClick={() => {
-              trackEvent({
-                category: 'Hero',
-                action: 'click_cta',
-                label: 'schedule_call',
-              })
-              handleScheduleCall()
-            }}
-          >
-            {getButtonText()}
-          </button>
-        </div>
-        <div className={styles.profileImage}>
-          <ProfileImage />
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.ctaButton}
+              onClick={() => {
+                trackEvent({
+                  category: 'Hero',
+                  action: 'click_cta',
+                  label: 'schedule_call',
+                })
+                handleScheduleCall()
+              }}
+            >
+              {getButtonText()}
+            </button>
+          </div>
         </div>
       </div>
     </section>
