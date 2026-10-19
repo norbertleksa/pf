@@ -68,6 +68,16 @@ export interface Translations {
   }
 }
 
+// Years since starting as a developer (1 June 2021), so the copy never goes stale
+const careerStart = new Date(2021, 5, 1)
+const now = new Date()
+const years =
+  now.getFullYear() -
+  careerStart.getFullYear() -
+  (now < new Date(now.getFullYear(), careerStart.getMonth(), careerStart.getDate()) ? 1 : 0)
+// Polish plural: 2–4 lata (except 12–14), otherwise lat
+const yearsPl = years % 10 >= 2 && years % 10 <= 4 && (years % 100 < 12 || years % 100 > 14) ? 'lata' : 'lat'
+
 export const translations: Record<Language, Translations> = {
   pl: {
     topBar: {
@@ -81,15 +91,15 @@ export const translations: Record<Language, Translations> = {
       contact: 'Kontakt',
     },
     hero: {
-      headline: 'Ekspert Frontend Developer',
+      headline: 'Senior Software Developer',
       subheadline: 'Budowanie skalowalnych produktów web i mobile',
       description:
-        'Frontend Developer tworzący skalowalne aplikacje webowe w React/Next.js i funkcjonalności mobilne we Flutterze. Dostarczam produkty obsługujące dziesiątki tysięcy użytkowników i osiągam mierzalne rezultaty biznesowe.',
+        'Senior Software Developer tworzący skalowalne aplikacje webowe w React/Next.js i funkcjonalności mobilne we Flutterze. Dostarczam produkty obsługujące dziesiątki tysięcy użytkowników i osiągam mierzalne rezultaty biznesowe.',
       achievements: [
         {
-          text: '4+ lata doświadczenia',
+          text: `${years}+ ${yearsPl} doświadczenia`,
           details:
-            'Ponad 4 lata komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).',
+            `Ponad ${years} ${yearsPl} komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).`,
         },
         {
           text: '55k+ aktywnych użytkowników',
@@ -133,11 +143,13 @@ export const translations: Record<Language, Translations> = {
     about: {
       title: 'O mnie',
       content:
-        'Jestem Frontend Developerem z 4+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.',
+        `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
     },
     courses: {
       title: 'Kursy',
       list: [
+        "Sanity Certification '26",
+        "Contentful Certification '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
@@ -150,6 +162,7 @@ export const translations: Record<Language, Translations> = {
       list: [
         { name: 'Angielski', level: 'C2' },
         { name: 'Polski', level: 'Native' },
+        { name: 'Hiszpański', level: 'B1' },
       ],
     },
     contact: {
@@ -177,15 +190,15 @@ export const translations: Record<Language, Translations> = {
       contact: 'Contact',
     },
     hero: {
-      headline: 'Expert Frontend Developer',
+      headline: 'Senior Software Developer',
       subheadline: 'Building scalable web & mobile products',
       description:
-        'Frontend Developer building scalable web apps in React/Next.js and mobile features in Flutter. I ship products serving tens of thousands of users and deliver measurable business outcomes',
+        'Senior Software Developer building scalable web apps in React/Next.js and mobile features in Flutter. I ship products serving tens of thousands of users and deliver measurable business outcomes',
       achievements: [
         {
-          text: '4+ years of experience',
+          text: `${years}+ years of experience`,
           details:
-            '4+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).',
+            `${years}+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).`,
         },
         {
           text: '55k+ active users',
@@ -229,11 +242,13 @@ export const translations: Record<Language, Translations> = {
     about: {
       title: 'About Me',
       content:
-        'I’m a Frontend Developer with 4+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.',
+        `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
     },
     courses: {
       title: 'Courses',
       list: [
+        "Sanity Certification '26",
+        "Contentful Certification '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
@@ -246,6 +261,7 @@ export const translations: Record<Language, Translations> = {
       list: [
         { name: 'English', level: 'C2' },
         { name: 'Polish', level: 'Native' },
+        { name: 'Spanish', level: 'B1' },
       ],
     },
     contact: {
