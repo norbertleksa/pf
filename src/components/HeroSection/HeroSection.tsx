@@ -88,13 +88,17 @@ const HeroSection = () => {
             {t.topBar.logoText}
           </h1>
           <p className={styles.description}>{t.hero.description}</p>
-          {showMore && (
-            <div id="about-more" className={styles.more}>
+          <div
+            id="about-more"
+            className={`${styles.moreWrap} ${showMore ? styles.moreOpen : ''}`}
+            aria-hidden={!showMore}
+          >
+            <div className={styles.more}>
               {t.about.content.split('\n\n').map((paragraph) => (
                 <p key={paragraph.slice(0, 10)}>{paragraph}</p>
               ))}
             </div>
-          )}
+          </div>
           <button
             type="button"
             className={styles.moreToggle}
