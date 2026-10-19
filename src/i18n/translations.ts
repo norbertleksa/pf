@@ -59,8 +59,6 @@ export interface Translations {
     subtitle: string
     email: string
     phone: string
-    location: string
-    linkedin: string
   }
   footer: {
     copyright: string
@@ -73,7 +71,7 @@ export interface Translations {
 export const translations: Record<Language, Translations> = {
   pl: {
     topBar: {
-      logoText: 'Przemysław Leksa',
+      logoText: 'Norbert Leksa',
       hero: 'Start',
       projects: 'Projekty',
       skills: 'Umiejętności',
@@ -159,11 +157,9 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Skontaktuj się ze mną',
       email: 'Email',
       phone: 'Telefon',
-      location: 'Lokalizacja',
-      linkedin: 'LinkedIn',
     },
     footer: {
-      copyright: '© {{year}} Przemysław Leksa. Wszelkie prawa zastrzeżone.',
+      copyright: '© {{year}} Norbert Leksa. Wszelkie prawa zastrzeżone.',
     },
     common: {
       language: 'Język',
@@ -171,7 +167,7 @@ export const translations: Record<Language, Translations> = {
   },
   en: {
     topBar: {
-      logoText: 'Przemysław Leksa',
+      logoText: 'Norbert Leksa',
       hero: 'Home',
       projects: 'Projects',
       skills: 'Skills',
@@ -257,11 +253,9 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Get in touch with me',
       email: 'Email',
       phone: 'Phone',
-      location: 'Location',
-      linkedin: 'LinkedIn',
     },
     footer: {
-      copyright: '© {{year}} Przemysław Leksa. All rights reserved.',
+      copyright: '© {{year}} Norbert Leksa. All rights reserved.',
     },
     common: {
       language: 'Language',

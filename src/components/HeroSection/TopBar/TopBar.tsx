@@ -71,7 +71,7 @@ const TopBar = () => {
           <div className={styles.logo}>
             <NavButton
               href="#hero"
-              text="PL"
+              text="NL"
               onClick={(e) => handleNavClick(e, '#hero')}
               style={styles.logoIcon}
             />

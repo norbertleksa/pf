@@ -1,4 +1,4 @@
-# Portfolio - Przemysław Leksa
+# Portfolio - Norbert Leksa
 
 Modern portfolio website built with React 19, TypeScript, SCSS modules, and Vite.
 
