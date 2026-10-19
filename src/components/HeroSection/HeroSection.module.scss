@@ -134,6 +134,25 @@
   color: var(--accent);
 }
 
+/* one flip of the board: the new character swings down into place */
+.flapChar {
+  display: block;
+  animation: flap-flip 70ms ease-out;
+}
+
+@keyframes flap-flip {
+  from {
+    transform: perspective(400px) rotateX(-80deg);
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flapChar {
+    animation: none;
+  }
+}
+
 .textContent {
   flex: 1 1 480px;
   min-width: 0;

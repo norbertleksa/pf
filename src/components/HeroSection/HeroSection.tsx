@@ -6,10 +6,42 @@ import ProofChip from '../ProofChip/ProofChip'
 import styles from './HeroSection.module.scss'
 import TopBar from './TopBar/TopBar'
 
+const FLAP_TARGET = ['N', 'L']
+const FLAP_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+const randomFlapChar = () => FLAP_ALPHABET[Math.floor(Math.random() * FLAP_ALPHABET.length)]
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 const HeroSection = () => {
   const { t } = useLanguage()
   const [isGlitching, setIsGlitching] = useState(true)
   const [showMore, setShowMore] = useState(false)
+  // each flap: current character + a tick that restarts the flip animation on every change
+  const [flaps, setFlaps] = useState(() =>
+    FLAP_TARGET.map((char) => ({ char: prefersReducedMotion() ? char : ' ', tick: 0 }))
+  )
+
+  // On load the monogram rolls through letters like an old departure board, then settles on NL
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const timers: ReturnType<typeof setTimeout>[] = []
+    FLAP_TARGET.forEach((target, i) => {
+      const steps = 12 + i * 5 // the second flap settles a little later, like a real board
+      for (let step = 1; step <= steps; step++) {
+        timers.push(
+          setTimeout(
+            () =>
+              setFlaps((prev) =>
+                prev.map((flap, j) =>
+                  j === i ? { char: step === steps ? target : randomFlapChar(), tick: step } : flap
+                )
+              ),
+            250 + step * 70
+          )
+        )
+      }
+    })
+    return () => timers.forEach(clearTimeout)
+  }, [])
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
@@ -92,12 +124,17 @@ const HeroSection = () => {
               </g>
             </svg>
           </button>
-          <span className={styles.flap} aria-hidden="true">
-            N
-          </span>
-          <span className={`${styles.flap} ${styles.flapAccent}`} aria-hidden="true">
-            L
-          </span>
+          {flaps.map((flap, i) => (
+            <span
+              key={FLAP_TARGET[i]}
+              className={`${styles.flap} ${i === 1 ? styles.flapAccent : ''}`}
+              aria-hidden="true"
+            >
+              <span key={flap.tick} className={styles.flapChar}>
+                {flap.char}
+              </span>
+            </span>
+          ))}
         </div>
         <div className={styles.textContent}>
           <p className="eyebrow">{t.hero.headline} · React / Next.js / Flutter</p>
