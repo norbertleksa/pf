@@ -2,7 +2,7 @@ import styles from './TopBar.module.scss'
 
 interface NavButtonProps {
   href: string
-  text: string
+  text: React.ReactNode
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   style?: string
 }
