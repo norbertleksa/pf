@@ -9,7 +9,7 @@
   overflow: hidden;
   color: var(--text-primary);
   text-align: left;
-  cursor: zoom-in;
+  cursor: pointer;
   transition: border-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
