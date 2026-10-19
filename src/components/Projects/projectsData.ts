@@ -1,5 +1,5 @@
-// Base path for images - automatically uses /showcase/ in production
-const basePath = import.meta.env.PROD ? '/showcase' : ''
+// Base path for images - follows Vite's base (repo name) in production
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
 
 export interface Project {
   id: string
