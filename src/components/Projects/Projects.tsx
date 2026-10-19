@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
 import FeaturedProject from './FeaturedProject/FeaturedProject'
 import ProjectCard from './ProjectCard/ProjectCard'
@@ -10,9 +10,39 @@ import { type Project, projects } from './projectsData'
 const featured = projects.filter((p) => p.highlight)
 const others = projects.filter((p) => !p.highlight)
 
+// Each project has a shareable link: /pf/#kitopay opens its details straight away
+const projectFromHash = () => projects.find((p) => `#${p.id}` === window.location.hash) ?? null
+
 const Projects: React.FC = () => {
   const { t } = useLanguage()
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(projectFromHash)
+
+  // arriving from a project link: put the page under the dialog at the projects section
+  useEffect(() => {
+    const section = document.getElementById('projects')
+    // instant: smooth scrolling is cancelled while the dialog locks the page
+    if (projectFromHash() && section)
+      window.scrollTo({ top: section.offsetTop, behavior: 'instant' })
+  }, [])
+
+  // follow links changed by hand or by back/forward
+  useEffect(() => {
+    const onHashChange = () => setSelectedProject(projectFromHash())
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  // mirror the open project in the address bar, so it can be copied and shared
+  useEffect(() => {
+    const { pathname, search, hash } = window.location
+    if (selectedProject) {
+      if (hash !== `#${selectedProject.id}`) {
+        history.replaceState(null, '', `${pathname}${search}#${selectedProject.id}`)
+      }
+    } else if (projects.some((p) => `#${p.id}` === hash)) {
+      history.replaceState(null, '', `${pathname}${search}`)
+    }
+  }, [selectedProject])
 
   const closeModal = () => setSelectedProject(null)
 

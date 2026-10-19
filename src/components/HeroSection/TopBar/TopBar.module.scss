@@ -37,7 +37,8 @@
   width: 28px;
   height: 36px;
   border-radius: 5px;
-  background: linear-gradient(var(--bg-tertiary) 0 50%, var(--bg-secondary) 50% 100%);
+  background: linear-gradient(var(--flap-top) 0 50%, var(--flap-bottom) 50% 100%);
+  border: 1px solid var(--flap-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +47,7 @@
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1;
-  color: var(--text-primary);
+  color: var(--flap-ink);
 
   /* the hinge line, as on the big hero tiles */
   &::after {
@@ -61,7 +62,7 @@
 }
 
 .logoFlapAccent {
-  color: var(--accent);
+  color: var(--flap-accent);
 }
 
 .logoText {
@@ -141,9 +142,7 @@
 }
 
 .languageButton,
-.themeButton,
-.mobileLanguageButton,
-.mobileThemeButton {
+.themeButton {
   background: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-strong);
@@ -166,13 +165,33 @@
   }
 }
 
-/* Hamburger Menu */
+.themeButton {
+  width: 44px;
+  padding: 0;
+}
+
+.themeIcon {
+  animation: theme-spin 0.4s ease;
+}
+
+@keyframes theme-spin {
+  from {
+    transform: rotate(-90deg) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .themeIcon {
+    animation: none;
+  }
+}
+
+/* Hamburger Menu: three bars that fold into a centred X when the menu is open */
 .hamburger {
   display: none;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -182,16 +201,34 @@
 }
 
 .hamburgerLine {
-  width: 100%;
+  position: absolute;
+  left: 9px;
+  width: 26px;
   height: 3px;
   background: var(--text-primary);
   border-radius: 2px;
-  transition: all 0.3s ease;
-  transform-origin: center;
+  transition: top 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburgerLine:nth-child(1) {
+  top: 13px;
+}
+
+.hamburgerLine:nth-child(2) {
+  top: 20.5px;
+}
+
+.hamburgerLine:nth-child(3) {
+  top: 28px;
+}
+
+.hamburgerOpen .hamburgerLine:nth-child(1),
+.hamburgerOpen .hamburgerLine:nth-child(3) {
+  top: 20.5px;
 }
 
 .hamburgerOpen .hamburgerLine:nth-child(1) {
-  transform: rotate(45deg) translateY(10px);
+  transform: rotate(45deg);
 }
 
 .hamburgerOpen .hamburgerLine:nth-child(2) {
@@ -199,100 +236,156 @@
 }
 
 .hamburgerOpen .hamburgerLine:nth-child(3) {
-  transform: rotate(-45deg) translateY(-10px);
-}
-
-/* Mobile Menu Overlay */
-.mobileMenuOverlay {
-  position: fixed;
-  inset: 0;
-  background: color-mix(in srgb, var(--bg-primary) 98%, transparent);
-  backdrop-filter: blur(10px);
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.mobileMenuOpen {
-  opacity: 1;
-  visibility: visible;
-  display: flex;
-}
-
-.closeButton {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10003;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.closeButtonVisible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.closeLine {
-  position: absolute;
-  width: 34px;
-  height: 3px;
-  background: var(--text-primary);
-  border-radius: 1px;
-}
-
-.closeLine:nth-child(1) {
-  transform: rotate(45deg);
-}
-
-.closeLine:nth-child(2) {
   transform: rotate(-45deg);
 }
 
-.mobileNavigation {
-  display: flex;
+/* Mobile Menu Overlay: big type links, a "let's talk" button and the settings at the bottom */
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
   flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  text-align: center;
+  padding: 16px 20px 24px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Contact is the main call to action, so it gets the accent like the hero CTA */
-.navButton a.mobileContact {
+.mobileMenuOpen {
+  display: flex;
+}
+
+.mobileLogo {
+  display: flex;
+  gap: 4px;
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.mobileNavigation {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: clamp(2.75rem, 15vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.mobileLinkIndex {
+  padding-top: 0.6em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.mobileLinkActive,
+.mobileLinkActive .mobileLinkIndex {
   color: var(--accent);
 }
 
-.mobileLanguageThemeContainer {
+.mobileFooter {
+  margin-top: auto;
+  padding-top: 32px;
   display: flex;
-  justify-content: space-between;
-  width: 100dvw;
-  gap: 1rem;
-  position: fixed;
-  bottom: 20px;
-  padding: 0 12px;
+  flex-direction: column;
+  gap: 16px;
+}
 
-  button {
-    min-height: 55px;
-    flex: 1;
-    font-size: 1rem;
+.mobileTalk,
+.mobileContactOption {
+  min-height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--fill);
+  color: var(--on-fill);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.mobileContactChoice {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  animation: contact-in 0.2s ease;
+}
+
+@keyframes contact-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
+}
+
+.mobileSettings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.mobileLanguages {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.mobileLanguage {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.mobileLanguageActive {
+  border-bottom-color: var(--accent);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.mobileThemeButton {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -301,10 +394,11 @@
   }
 
   .hamburger {
-    display: flex;
+    display: block;
     position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001;
+    top: 13px;
+    right: 13px;
+    /* above the open menu, where it doubles as the close (X) button */
+    z-index: 10001;
   }
 }

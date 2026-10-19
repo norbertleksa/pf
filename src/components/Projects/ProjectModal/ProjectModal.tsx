@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../../../contexts/LanguageContext'
-import { type Project, projects } from '../projectsData'
+import { type Project, imageVariant, projects } from '../projectsData'
 import styles from './ProjectModal.module.scss'
 
 interface ProjectModalProps {
@@ -30,7 +30,8 @@ const useOrientations = (srcs: string[]) => {
           ...prev,
           [src]: img.naturalWidth >= img.naturalHeight ? 'wide' : 'tall',
         }))
-      img.src = src
+      // the small thumbnail has the same proportions, so there's no need to download the full image
+      img.src = imageVariant(src, 'thumb')
     }
   }, [srcs])
   return orientations
@@ -52,9 +53,15 @@ const Chevron = ({ left }: { left?: boolean }) => (
   </svg>
 )
 
-const Shot = ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+// size: a lighter copy for thumbnails and the grid; the main viewer gets the full screenshot
+const Shot = ({
+  src,
+  alt,
+  className,
+  size,
+}: { src: string; alt: string; className?: string; size?: 'thumb' | 'md' }) => (
   <picture>
-    <source srcSet={webp(src)} type="image/webp" />
+    <source srcSet={size ? imageVariant(src, size) : webp(src)} type="image/webp" />
     <img src={src} alt={alt} className={className} loading="lazy" />
   </picture>
 )
@@ -242,7 +249,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                       }}
                       aria-label={`${t.projects.screenshot} ${i + 1}`}
                     >
-                      <Shot src={src} alt="" className={styles.tileImage} />
+                      <Shot src={src} alt="" className={styles.tileImage} size="md" />
                     </button>
                   ))}
                 </div>
@@ -297,7 +304,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                           aria-label={`${t.projects.screenshot} ${i + 1}`}
                           aria-current={i === current}
                         >
-                          <Shot src={src} alt="" className={styles.thumbImage} />
+                          <Shot src={src} alt="" className={styles.thumbImage} size="thumb" />
                         </button>
                       ))}
                     </div>

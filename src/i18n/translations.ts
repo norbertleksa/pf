@@ -97,6 +97,8 @@ export interface Translations {
   }
   common: {
     language: string
+    lightMode: string
+    darkMode: string
   }
 }
 
@@ -242,6 +244,8 @@ export const translations: Record<Language, Translations> = {
     },
     common: {
       language: 'Język',
+      lightMode: 'Tryb jasny',
+      darkMode: 'Tryb ciemny',
     },
   },
   en: {
@@ -374,6 +378,8 @@ export const translations: Record<Language, Translations> = {
     },
     common: {
       language: 'Language',
+      lightMode: 'Light mode',
+      darkMode: 'Dark mode',
     },
   },
 }

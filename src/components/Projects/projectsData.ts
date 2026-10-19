@@ -1,6 +1,10 @@
 // Base path for images - follows Vite's base (repo name) in production
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
 
+// Smaller WebP copies next to each screenshot: .thumb (240px tall) for strips, .md (max 1400px wide) for cards and grids
+export const imageVariant = (src: string, size: 'thumb' | 'md') =>
+  src.replace(/\.(jpg|jpeg|png|webp)$/, `.${size}.webp`)
+
 export interface Project {
   id: string
   name: string

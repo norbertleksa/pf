@@ -40,7 +40,7 @@ const Contact: React.FC = () => {
   ]
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className={`section ${styles.contact}`}>
       <div className={`section-inner ${styles.container}`}>
         <p className="eyebrow">{t.contact.title}</p>
         <h2 className={styles.heading}>{t.contact.heading}</h2>

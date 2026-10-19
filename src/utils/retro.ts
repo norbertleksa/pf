@@ -12,6 +12,16 @@ export const stopRetroMusic = () => {
   }
 }
 
+// The retro page's pixel fonts are only fetched once someone finds the easter egg
+const loadRetroFonts = () => {
+  if (document.getElementById('retro-fonts')) return
+  const link = document.createElement('link')
+  link.id = 'retro-fonts'
+  link.rel = 'stylesheet'
+  link.href = 'https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&display=swap'
+  document.head.appendChild(link)
+}
+
 // Easter egg: swaps the whole page for the 90s homepage, with music
 export const toggleRetro = () => {
   const root = document.documentElement
@@ -19,6 +29,7 @@ export const toggleRetro = () => {
     root.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light')
     stopRetroMusic()
   } else {
+    loadRetroFonts()
     root.setAttribute('data-theme', RETRO)
     if (!music) {
       music = new Audio(`${import.meta.env.BASE_URL}audio/64-bit-adventure.mp3`)

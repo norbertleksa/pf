@@ -22,6 +22,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   useEffect(() => {
     localStorage.setItem('portfolio-language', language)
+    // keep <html lang> in sync for screen readers, translation tools and search engines
+    document.documentElement.lang = language
   }, [language])
 
   const t = translations[language]

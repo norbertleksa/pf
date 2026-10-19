@@ -379,11 +379,12 @@
 
 .techTag {
   padding: 5px 10px;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--chip-border);
   border-radius: 999px;
+  background: var(--chip-bg);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: var(--chip-ink);
 }
 
 /* project links right under the metrics, high enough to see without scrolling */
@@ -412,8 +413,8 @@
 }
 
 .liveLink {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--fill);
+  color: var(--on-fill);
 }
 
 .outlineLink {

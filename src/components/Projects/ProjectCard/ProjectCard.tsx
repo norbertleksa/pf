@@ -1,6 +1,6 @@
 import { useLanguage } from '../../../contexts/LanguageContext'
 import { trackEvent } from '../../../utils/analytics'
-import type { Project } from '../projectsData'
+import { type Project, imageVariant } from '../projectsData'
 import styles from './ProjectCard.module.scss'
 
 interface ProjectCardProps {
@@ -28,8 +28,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }) => {
       <div className={styles.screenshot}>
         {cover && (
           <picture>
-            <source srcSet={cover.replace(/\.(jpg|jpeg|png)$/, '.webp')} type="image/webp" />
-            <img src={cover} alt="" className={styles.screenshotImage} />
+            <source srcSet={imageVariant(cover, 'md')} type="image/webp" />
+            <img
+              src={cover}
+              alt=""
+              className={styles.screenshotImage}
+              loading="lazy"
+              decoding="async"
+            />
           </picture>
         )}
       </div>

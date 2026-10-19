@@ -1,6 +1,6 @@
 import { useLanguage } from '../../../contexts/LanguageContext'
 import { trackEvent } from '../../../utils/analytics'
-import type { Project } from '../projectsData'
+import { type Project, imageVariant } from '../projectsData'
 import styles from './FeaturedProject.module.scss'
 
 interface FeaturedProjectProps {
@@ -45,10 +45,12 @@ const FeaturedProject: React.FC<FeaturedProjectProps> = ({ project, index, onOpe
       >
         {coverSrc && (
           <picture>
-            <source srcSet={coverSrc.replace(/\.(jpg|jpeg|png)$/, '.webp')} type="image/webp" />
+            <source srcSet={imageVariant(coverSrc, 'md')} type="image/webp" />
             <img
               src={coverSrc}
               alt=""
+              loading="lazy"
+              decoding="async"
               className={`${styles.coverImage} ${cover?.fill ? styles.coverFill : ''}`}
             />
           </picture>

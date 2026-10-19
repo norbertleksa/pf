@@ -1,3 +1,14 @@
+/* own colour block: dark in the dark theme, a yellow sign in the light one
+   (section.* to outrank the global .section background) */
+section.contact {
+  background: var(--contact-bg);
+  color: var(--contact-ink);
+
+  :global(.eyebrow) {
+    color: var(--contact-accent);
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -9,20 +20,20 @@
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: var(--text-primary);
+  color: var(--contact-ink);
 }
 
 .subtitle {
   max-width: 600px;
   font-size: 1.25rem;
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: var(--contact-muted);
 }
 
 .rows {
   list-style: none;
   margin-top: 8px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--contact-line);
 }
 
 .row {
@@ -33,7 +44,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 32px 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--contact-line);
 }
 
 .rowText {
@@ -47,18 +58,18 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--contact-muted);
 }
 
 .value {
   font-size: clamp(1.375rem, 3vw, 2.25rem);
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--contact-ink);
   text-decoration: none;
   overflow-wrap: anywhere;
 
   &:hover {
-    color: var(--accent);
+    color: var(--contact-accent);
   }
 }
 
@@ -74,9 +85,9 @@
   min-height: 52px;
   padding: 0 22px;
   border-radius: 999px;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--contact-outline);
   background: transparent;
-  color: var(--text-primary);
+  color: var(--contact-ink);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -84,13 +95,13 @@
 
   /* same lift as the hero CTA */
   &:hover {
-    border-color: var(--accent);
+    border-color: var(--contact-accent);
     transform: translateY(-2px);
   }
 }
 
 .copyPrimary {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--on-accent);
+  border-color: var(--contact-fill);
+  background: var(--contact-fill);
+  color: var(--contact-on-fill);
 }
