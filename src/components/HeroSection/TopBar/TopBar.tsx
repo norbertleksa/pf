@@ -104,18 +104,6 @@ const TopBar = () => {
               style={styles.navLink}
             />
             <NavButton
-              href="#courses"
-              text={t.topBar.courses}
-              onClick={(e) => handleNavClick(e, '#courses')}
-              style={styles.navLink}
-            />
-            <NavButton
-              href="#languages"
-              text={t.topBar.languages}
-              onClick={(e) => handleNavClick(e, '#languages')}
-              style={styles.navLink}
-            />
-            <NavButton
               href="#contact"
               text={t.topBar.contact}
               onClick={(e) => handleNavClick(e, '#contact')}
@@ -211,22 +199,6 @@ const TopBar = () => {
             text={t.topBar.about}
             onClick={(e) => {
               handleNavClick(e, '#about')
-              closeMenu()
-            }}
-          />
-          <NavButton
-            href="#courses"
-            text={t.topBar.courses}
-            onClick={(e) => {
-              handleNavClick(e, '#courses')
-              closeMenu()
-            }}
-          />
-          <NavButton
-            href="#languages"
-            text={t.topBar.languages}
-            onClick={(e) => {
-              handleNavClick(e, '#languages')
               closeMenu()
             }}
           />

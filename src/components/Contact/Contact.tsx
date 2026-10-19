@@ -6,20 +6,19 @@ import styles from './Contact.module.scss'
 
 const Contact: React.FC = () => {
   const { t } = useLanguage()
-  const [copiedLabel, setCopiedLabel] = useState<string | null>(null)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
 
-  const handleCopy = (text: string, label: string) => {
+  const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text)
-    setCopiedLabel(label)
+    setCopiedId(id)
     setTimeout(() => {
-      setCopiedLabel(null)
+      setCopiedId(null)
     }, 2000)
   }
 
   const contactInfo = [
     {
       id: 'email',
-      icon: '📧',
       label: t.contact.email,
       value: (
         <>
@@ -29,35 +28,32 @@ const Contact: React.FC = () => {
         </>
       ),
       link: 'mailto:norbertleksa@gmail.com',
-      canCopy: true,
       copyValue: 'norbertleksa@gmail.com',
     },
     {
       id: 'phone',
-      icon: '📱',
       label: t.contact.phone,
       value: '+48 514 230 618',
       link: 'tel:+48514230618',
-      canCopy: true,
       copyValue: '+48514230618',
     },
   ]
 
   return (
-    <section id="contact" className={styles.contactSection}>
-      <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>{t.contact.title}</h2>
-        <p className={styles.sectionSubtitle}>{t.contact.subtitle}</p>
+    <section id="contact" className="section">
+      <div className={`section-inner ${styles.container}`}>
+        <p className="eyebrow">{t.contact.title}</p>
+        <h2 className={styles.heading}>{t.contact.heading}</h2>
+        <p className={styles.subtitle}>{t.contact.subtitle}</p>
 
-        <div className={styles.contactGrid}>
-          {contactInfo.map((item) => (
-            <div key={item.label} className={styles.contactCard}>
-              {item.link ? (
+        <ul className={styles.rows}>
+          {contactInfo.map((item, index) => (
+            <li key={item.id} className={styles.row}>
+              <div className={styles.rowText}>
+                <span className={styles.label}>{item.label}</span>
                 <a
                   href={item.link}
-                  target={item.link.startsWith('http') ? '_blank' : undefined}
-                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className={styles.cardLink}
+                  className={`${styles.value} ${index === 0 ? styles.valueLarge : ''}`}
                   onClick={() =>
                     trackEvent({
                       category: 'Contact',
@@ -66,81 +62,59 @@ const Contact: React.FC = () => {
                     })
                   }
                 >
-                  <div className={styles.contactIcon}>
-                    <span className={styles.icon}>{item.icon}</span>
-                  </div>
-                  <div className={styles.contactContent}>
-                    <h3 className={styles.contactLabel}>{item.label}</h3>
-                    <span className={styles.contactValue}>{item.value}</span>
-                  </div>
+                  {item.value}
                 </a>
-              ) : (
-                <div className={styles.cardLink}>
-                  <div className={styles.contactIcon}>
-                    <span className={styles.icon}>{item.icon}</span>
-                  </div>
-                  <div className={styles.contactContent}>
-                    <h3 className={styles.contactLabel}>{item.label}</h3>
-                    <span className={styles.contactValue}>{item.value}</span>
-                  </div>
-                </div>
-              )}
-
-              {item.canCopy && (
-                <button
-                  type="button"
-                  className={styles.copyButton}
-                  onClick={() => {
-                    trackEvent({
-                      category: 'Contact',
-                      action: 'copy_info',
-                      label: item.id,
-                    })
-                    handleCopy(
-                      item.copyValue || (typeof item.value === 'string' ? item.value : ''),
-                      item.label
-                    )
-                  }}
-                  title="Copy to clipboard"
-                >
-                  {copiedLabel === item.label ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={styles.copyIconSuccess}
-                      aria-hidden="true"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                    </svg>
-                  )}
-                </button>
-              )}
-            </div>
+              </div>
+              <button
+                type="button"
+                className={`${styles.copyButton} ${index === 0 ? styles.copyPrimary : ''}`}
+                onClick={() => {
+                  trackEvent({
+                    category: 'Contact',
+                    action: 'copy_info',
+                    label: item.id,
+                  })
+                  handleCopy(item.copyValue, item.id)
+                }}
+                aria-label={`${t.contact.copy}: ${item.label}`}
+              >
+                {copiedId === item.id ? (
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="9" y="9" width="12" height="12" rx="2" />
+                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                  </svg>
+                )}
+                <span aria-live="polite">
+                  {copiedId === item.id ? t.contact.copied : t.contact.copy}
+                </span>
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

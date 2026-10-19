@@ -12,6 +12,9 @@ const Footer: React.FC = () => {
         <p className={styles.copyright}>
           {t.footer.copyright.replace('{{year}}', year.toString())}
         </p>
+        <a href="#hero" className={styles.backToTop}>
+          {t.footer.backToTop} ↑
+        </a>
       </div>
     </footer>
   )

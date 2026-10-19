@@ -7,13 +7,10 @@ export interface Translations {
     projects: string
     skills: string
     about: string
-    courses: string
-    languages: string
     contact: string
   }
   hero: {
     headline: string
-    subheadline: string
     description: string
     achievements: Array<{ text: string; details: string }>
     scheduleCall: string
@@ -27,6 +24,9 @@ export interface Translations {
     technologies: string
     achievements: string
     myRole: string
+    gallery: string
+    details: string
+    otherProjects: string
   }
   skills: {
     title: string
@@ -57,11 +57,15 @@ export interface Translations {
   contact: {
     title: string
     subtitle: string
+    heading: string
     email: string
     phone: string
+    copy: string
+    copied: string
   }
   footer: {
     copyright: string
+    backToTop: string
   }
   common: {
     language: string
@@ -76,7 +80,8 @@ const years =
   careerStart.getFullYear() -
   (now < new Date(now.getFullYear(), careerStart.getMonth(), careerStart.getDate()) ? 1 : 0)
 // Polish plural: 2–4 lata (except 12–14), otherwise lat
-const yearsPl = years % 10 >= 2 && years % 10 <= 4 && (years % 100 < 12 || years % 100 > 14) ? 'lata' : 'lat'
+const yearsPl =
+  years % 10 >= 2 && years % 10 <= 4 && (years % 100 < 12 || years % 100 > 14) ? 'lata' : 'lat'
 
 export const translations: Record<Language, Translations> = {
   pl: {
@@ -86,20 +91,16 @@ export const translations: Record<Language, Translations> = {
       projects: 'Projekty',
       skills: 'Umiejętności',
       about: 'O mnie',
-      courses: 'Kursy',
-      languages: 'Języki',
       contact: 'Kontakt',
     },
     hero: {
       headline: 'Senior Software Developer',
-      subheadline: 'Budowanie skalowalnych produktów web i mobile',
       description:
         'Senior Software Developer tworzący skalowalne aplikacje webowe w React/Next.js i funkcjonalności mobilne we Flutterze. Dostarczam produkty obsługujące dziesiątki tysięcy użytkowników i osiągam mierzalne rezultaty biznesowe.',
       achievements: [
         {
           text: `${years}+ ${yearsPl} doświadczenia`,
-          details:
-            `Ponad ${years} ${yearsPl} komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).`,
+          details: `Ponad ${years} ${yearsPl} komercyjnego doświadczenia w budowaniu skalowalnych aplikacji webowych w React/TypeScript oraz dowożeniu funkcji end-to-end (architektura → implementacja → optymalizacja).`,
         },
         {
           text: '55k+ aktywnych użytkowników',
@@ -128,6 +129,9 @@ export const translations: Record<Language, Translations> = {
       technologies: 'Technologie:',
       achievements: 'Osiągnięcia:',
       myRole: 'Moja rola:',
+      gallery: 'Galeria',
+      details: 'Szczegóły i zrzuty',
+      otherProjects: 'Pozostałe projekty',
     },
     skills: {
       title: 'Umiejętności',
@@ -142,11 +146,10 @@ export const translations: Record<Language, Translations> = {
     },
     about: {
       title: 'O mnie',
-      content:
-        `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
+      content: `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
     },
     courses: {
-      title: 'Kursy',
+      title: 'Kursy i certyfikaty',
       list: [
         "Sanity Certification '26",
         "Contentful Certification '26",
@@ -161,18 +164,23 @@ export const translations: Record<Language, Translations> = {
       title: 'Języki',
       list: [
         { name: 'Angielski', level: 'C2' },
-        { name: 'Polski', level: 'Native' },
+        { name: 'Polski', level: 'Ojczysty' },
         { name: 'Hiszpański', level: 'B1' },
       ],
     },
     contact: {
       title: 'Kontakt',
-      subtitle: 'Skontaktuj się ze mną',
+      heading: 'Porozmawiajmy.',
+      subtitle:
+        'Szukam roli Senior Software Developera — tylko zdalnie. Najszybciej odpowiadam na maila.',
       email: 'Email',
       phone: 'Telefon',
+      copy: 'Kopiuj',
+      copied: 'Skopiowano',
     },
     footer: {
       copyright: '© {{year}} Norbert Leksa. Wszelkie prawa zastrzeżone.',
+      backToTop: 'Na górę',
     },
     common: {
       language: 'Język',
@@ -185,20 +193,16 @@ export const translations: Record<Language, Translations> = {
       projects: 'Projects',
       skills: 'Skills',
       about: 'About',
-      courses: 'Courses',
-      languages: 'Languages',
       contact: 'Contact',
     },
     hero: {
       headline: 'Senior Software Developer',
-      subheadline: 'Building scalable web & mobile products',
       description:
         'Senior Software Developer building scalable web apps in React/Next.js and mobile features in Flutter. I ship products serving tens of thousands of users and deliver measurable business outcomes',
       achievements: [
         {
           text: `${years}+ years of experience`,
-          details:
-            `${years}+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).`,
+          details: `${years}+ years of commercial experience building scalable web apps in React/TypeScript and shipping end-to-end features (architecture → implementation → optimization).`,
         },
         {
           text: '55k+ active users',
@@ -227,6 +231,9 @@ export const translations: Record<Language, Translations> = {
       technologies: 'Technologies:',
       achievements: 'Achievements:',
       myRole: 'My Role:',
+      gallery: 'Gallery',
+      details: 'Details & screenshots',
+      otherProjects: 'Other projects',
     },
     skills: {
       title: 'Skills',
@@ -241,11 +248,10 @@ export const translations: Record<Language, Translations> = {
     },
     about: {
       title: 'About Me',
-      content:
-        `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
+      content: `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
     },
     courses: {
-      title: 'Courses',
+      title: 'Courses & certificates',
       list: [
         "Sanity Certification '26",
         "Contentful Certification '26",
@@ -266,12 +272,17 @@ export const translations: Record<Language, Translations> = {
     },
     contact: {
       title: 'Contact',
-      subtitle: 'Get in touch with me',
+      heading: "Let's talk.",
+      subtitle:
+        'Looking for a Senior Software Developer role — remote only. Email is the fastest way to reach me.',
       email: 'Email',
       phone: 'Phone',
+      copy: 'Copy',
+      copied: 'Copied',
     },
     footer: {
       copyright: '© {{year}} Norbert Leksa. All rights reserved.',
+      backToTop: 'Back to top',
     },
     common: {
       language: 'Language',

@@ -7,9 +7,9 @@ const About: React.FC = () => {
   const { t } = useLanguage()
 
   return (
-    <section id="about" className={styles.aboutSection}>
-      <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>{t.about.title}</h2>
+    <section id="about" className="section">
+      <div className="section-inner">
+        <h2 className="section-title">{t.about.title}</h2>
         <div className={styles.content}>
           <div className={styles.imageContent}>
             <ProfileImage />

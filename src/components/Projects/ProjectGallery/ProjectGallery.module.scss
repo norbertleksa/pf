@@ -4,7 +4,7 @@
   position: relative;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  background: #f3f4f6;
+  background: var(--bg-secondary);
 }
 
 .mainImage {
@@ -225,10 +225,6 @@
 }
 
 /* Dark theme styles */
-[data-theme='dark'] .gallery {
-  background: #374151;
-}
-
 [data-theme='dark'] .placeholderImage {
   background: linear-gradient(135deg, #4b5563, #6b7280);
 }

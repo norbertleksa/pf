@@ -1,97 +1,68 @@
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
+import FeaturedProject from './FeaturedProject/FeaturedProject'
 import ProjectCard from './ProjectCard/ProjectCard'
 import ProjectModal from './ProjectModal/ProjectModal'
 import styles from './Projects.module.scss'
-import { projects } from './projectsData'
+import { type Project, projects } from './projectsData'
+
+const featured = projects.filter((p) => p.highlight)
+const others = projects.filter((p) => !p.highlight)
 
 const Projects: React.FC = () => {
   const { t } = useLanguage()
-  const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const [isHinting, setIsHinting] = useState(false)
-  const [showSubtitle, setShowSubtitle] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    if (hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        if (entry.isIntersecting) {
-          setHasAnimated(true)
-          setIsHinting(true)
-
-          setTimeout(() => {
-            setIsHinting(false)
-            setShowSubtitle(true)
-          }, 2000)
-
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [hasAnimated])
-
-  const openModal = (project: (typeof projects)[0]) => {
-    setSelectedProject(project)
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-    setSelectedProject(null)
-  }
+  const closeModal = () => setSelectedProject(null)
 
   const goToNextProject = () => {
     if (!selectedProject) return
     const currentIndex = projects.findIndex((p) => p.id === selectedProject.id)
-    const nextIndex = (currentIndex + 1) % projects.length
-    setSelectedProject(projects[nextIndex])
+    setSelectedProject(projects[(currentIndex + 1) % projects.length])
   }
 
   const goToPreviousProject = () => {
     if (!selectedProject) return
     const currentIndex = projects.findIndex((p) => p.id === selectedProject.id)
-    const prevIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1
-    setSelectedProject(projects[prevIndex])
+    setSelectedProject(projects[(currentIndex - 1 + projects.length) % projects.length])
   }
 
   return (
-    <section id="projects" className={styles.projectsSection} ref={sectionRef}>
-      <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>{t.projects.title}</h2>
-        <h3 className={`${styles.sectionSubtitle} ${showSubtitle ? styles.visible : ''}`}>
-          {t.projects.subtitle}
-        </h3>
-        <div className={styles.projectsGrid}>
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onOpenModal={() => openModal(project)}
-              isHinting={index === 0 && isHinting}
-              hintText={t.projects.subtitle}
-            />
-          ))}
+    <section id="projects" className="section">
+      <div className={`section-inner ${styles.container}`}>
+        <div className={styles.header}>
+          <h2 className="section-title">{t.projects.title}</h2>
+          <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
+        </div>
+
+        {featured.map((project, index) => (
+          <FeaturedProject
+            key={project.id}
+            project={project}
+            index={index}
+            onOpenModal={() => setSelectedProject(project)}
+          />
+        ))}
+
+        <div className={styles.others}>
+          <h3 className="eyebrow">{t.projects.otherProjects}</h3>
+          <div className={styles.projectsGrid}>
+            {others.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onOpenModal={() => setSelectedProject(project)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
-          isOpen={isModalOpen}
+          isOpen
           onClose={closeModal}
           onNext={goToNextProject}
           onPrevious={goToPreviousProject}

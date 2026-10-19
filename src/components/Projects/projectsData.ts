@@ -30,12 +30,28 @@ export interface Project {
   githubUrl?: string
   appStoreUrl?: string
   githubHidden?: boolean
+  // Featured projects get a case-study layout with headline numbers
+  highlight?: {
+    tag: { en: string; pl: string }
+    // which screenshot to show on the card; `fill` crops a wide shot to the whole frame
+    cover: { index: number; fill?: boolean }
+    metrics: Array<{ value: string; label: { en: string; pl: string } }>
+  }
 }
 
 export const projects: Project[] = [
   {
     id: 'kitopay',
     name: 'Kitopay',
+    highlight: {
+      tag: { en: 'Web app · payments', pl: 'Web app · płatności' },
+      cover: { index: 4 },
+      metrics: [
+        { value: '~1M USD', label: { en: 'yearly profit', pl: 'rocznego zysku' } },
+        { value: '55k', label: { en: 'active users', pl: 'aktywnych użytkowników' } },
+        { value: '200k+', label: { en: 'monthly views', pl: 'wyświetleń miesięcznie' } },
+      ],
+    },
     shortDescription: {
       en: 'Dine-in payment app with QR code scanning and instant bill payment.',
       pl: 'Aplikacja płatności na miejscu z skanowaniem kodów QR i natychmiastową płatnością rachunku.',
@@ -91,6 +107,20 @@ export const projects: Project[] = [
   {
     id: 'rightbite',
     name: 'RightBite',
+    highlight: {
+      tag: { en: 'Web + mobile · meal plans', pl: 'Web + mobile · plany żywieniowe' },
+      cover: { index: 0, fill: true },
+      metrics: [
+        {
+          value: 'Flex',
+          label: { en: 'the only such service in the UAE', pl: 'jedyna taka usługa w ZEA' },
+        },
+        {
+          value: '3',
+          label: { en: 'apps: store · mobile · admin', pl: 'aplikacje: sklep · mobile · admin' },
+        },
+      ],
+    },
     shortDescription: {
       en: 'Meal plans web app with unique Flex functionality for meal swapping.',
       pl: 'Aplikacja webowa planów żywieniowych z unikalną funkcjonalnością Flex do zamiany posiłków.',
@@ -148,6 +178,15 @@ export const projects: Project[] = [
   {
     id: 'kitopi-app',
     name: 'Kitopi App',
+    highlight: {
+      tag: { en: 'Mobile · iOS & Android', pl: 'Mobile · iOS i Android' },
+      cover: { index: 0 },
+      metrics: [
+        { value: '200k+', label: { en: 'users', pl: 'użytkowników' } },
+        { value: '140k AED', label: { en: 'additional revenue', pl: 'dodatkowego przychodu' } },
+        { value: '+5000', label: { en: 'new users', pl: 'nowych użytkowników' } },
+      ],
+    },
     shortDescription: {
       en: 'Cross-brand food ordering and rewards platform for iOS and Android.',
       pl: 'Platforma zamówień jedzenia i nagród cross-brand dla iOS i Android.',

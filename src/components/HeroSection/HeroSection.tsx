@@ -3,7 +3,6 @@ import { useLanguage } from '../../contexts/LanguageContext'
 import { trackEvent } from '../../utils/analytics'
 import ProofChip from '../ProofChip/ProofChip'
 import styles from './HeroSection.module.scss'
-import ProfileImage from './ProfileImage/ProfileImage'
 import TopBar from './TopBar/TopBar'
 
 const HeroSection = () => {
@@ -59,17 +58,18 @@ const HeroSection = () => {
     <section id="hero" className={styles.heroSection}>
       <TopBar />
       <div className={styles.content}>
+        <div className={styles.monogram} aria-hidden="true">
+          <span className={styles.flap}>N</span>
+          <span className={`${styles.flap} ${styles.flapAccent}`}>L</span>
+        </div>
         <div className={styles.textContent}>
-          <div className={styles.nameContainer}>
-            <h2 className={styles.name}>{t.topBar.logoText}</h2>
-          </div>
+          <p className="eyebrow">{t.hero.headline} · React / Next.js / Flutter</p>
           <h1
-            className={`${styles.headline} ${isGlitching ? styles.glitching : ''}`}
-            data-text={t.hero.headline}
+            className={`${styles.name} ${isGlitching ? styles.glitching : ''}`}
+            data-text={t.topBar.logoText}
           >
-            {t.hero.headline}
+            {t.topBar.logoText}
           </h1>
-          <h2 className={styles.subheadline}>{t.hero.subheadline}</h2>
           <p className={styles.description}>{t.hero.description}</p>
           <ul className={styles.achievements}>
             {t.hero.achievements.map((achievement) => (
@@ -78,23 +78,22 @@ const HeroSection = () => {
               </li>
             ))}
           </ul>
-          <button
-            type="button"
-            className={styles.ctaButton}
-            onClick={() => {
-              trackEvent({
-                category: 'Hero',
-                action: 'click_cta',
-                label: 'schedule_call',
-              })
-              handleScheduleCall()
-            }}
-          >
-            {getButtonText()}
-          </button>
-        </div>
-        <div className={styles.profileImage}>
-          <ProfileImage />
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.ctaButton}
+              onClick={() => {
+                trackEvent({
+                  category: 'Hero',
+                  action: 'click_cta',
+                  label: 'schedule_call',
+                })
+                handleScheduleCall()
+              }}
+            >
+              {getButtonText()}
+            </button>
+          </div>
         </div>
       </div>
     </section>

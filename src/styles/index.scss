@@ -25,46 +25,50 @@ html {
 }
 
 body {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Sora', sans-serif;
 }
 
 .app {
   min-height: 100vh;
 }
 
+:root {
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --page-width: 1240px;
+  --page-gutter: 24px;
+}
+
 /* Light theme (default) */
 :root,
 [data-theme='light'] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: rgba(255, 255, 255, 0.1);
-  --text-primary: #1a202c;
-  --text-secondary: #4a5568;
-  --border-color: #e2e8f0;
+  --bg-primary: #f6f4ee;
+  --bg-secondary: #ece9e1;
+  --bg-tertiary: #e4e0d6;
+  --text-primary: #16171b;
+  --text-secondary: #3d3e44;
+  --text-muted: #5e5f66;
+  --border-color: #d9d5ca;
+  --border-strong: #bdb8ab;
+  --accent: #9a5b00;
+  --on-accent: #ffffff;
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* Dark theme */
 [data-theme='dark'] {
-  --bg-primary: #1a202c;
-  --bg-secondary: #2d3748;
-  --text-primary: #f7fafc;
-  --text-secondary: #a0aec0;
-  --border-color: #4a5568;
+  --bg-primary: #0f1013;
+  --bg-secondary: #17181d;
+  --bg-tertiary: #1e1f25;
+  --text-primary: #f3f1ea;
+  --text-secondary: #c9c7bf;
+  --text-muted: #a3a39c;
+  --border-color: #2a2c33;
+  --border-strong: #3a3c44;
+  --accent: #f5b83d;
+  --on-accent: #0f1013;
   --shadow: rgba(0, 0, 0, 0.3);
 }
 
@@ -75,8 +79,48 @@ h6 {
   --bg-tertiary: rgba(255, 0, 255, 0.2);
   --text-primary: #ffff00;
   --text-secondary: #00ff00;
+  --text-muted: #00ffff;
   --border-color: #ff00ff;
+  --border-strong: #00ff00;
+  --accent: #ff00ff;
+  --on-accent: #ffff00;
   --shadow: rgba(255, 0, 255, 0.5);
+}
+
+/* Shared section heading pieces */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* keep anchored sections clear of the fixed top bar */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+.section {
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.section-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 96px var(--page-gutter);
+
+  @media (max-width: 768px) {
+    padding: 64px var(--page-gutter);
+  }
 }
 
 [data-theme='retro90s'] body {
