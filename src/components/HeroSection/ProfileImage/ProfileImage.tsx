@@ -32,7 +32,7 @@ const ProfileImage = () => {
         <div className={styles.profileImage}>
           <picture>
             <source srcSet={profileImageWebp} type="image/webp" />
-            <img src={profileImagePng} alt="Przemysław Leksa" className={styles.profileImg} />
+            <img src={profileImagePng} alt="Norbert Leksa" className={styles.profileImg} />
           </picture>
           <button
             type="button"

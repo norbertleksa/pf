@@ -23,14 +23,14 @@ const Contact: React.FC = () => {
       label: t.contact.email,
       value: (
         <>
-          przemyslawleksa
+          norbertleksa
           <wbr />
           @gmail.com
         </>
       ),
-      link: 'mailto:przemyslawleksa@gmail.com',
+      link: 'mailto:norbertleksa@gmail.com',
       canCopy: true,
-      copyValue: 'przemyslawleksa@gmail.com',
+      copyValue: 'norbertleksa@gmail.com',
     },
     {
       id: 'phone',
@@ -40,23 +40,6 @@ const Contact: React.FC = () => {
       link: 'tel:+48514230618',
       canCopy: true,
       copyValue: '+48514230618',
-    },
-    {
-      id: 'location',
-      icon: '📍',
-      label: t.contact.location,
-      value: 'Cracow, Poland',
-      link: null,
-      canCopy: false,
-    },
-    {
-      id: 'linkedin',
-      icon: '💼',
-      label: t.contact.linkedin,
-      value: 'linkedin.com/in/pleksa',
-      link: 'https://linkedin.com/in/pleksa',
-      canCopy: true,
-      copyValue: 'https://linkedin.com/in/pleksa',
     },
   ]
 
