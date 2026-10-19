@@ -151,12 +151,12 @@ export const translations: Record<Language, Translations> = {
     courses: {
       title: 'Kursy i certyfikaty',
       list: [
-        "Sanity Certification '26",
-        "Contentful Certification '26",
+        "Contentful Certified Professional '26",
+        "Sanity Certified Developer '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
-        "EPAM end Webinar '20",
+        "EPAM Frontend Webinar '20",
         "Codebrainers Fullstack Bootcamp '19",
       ],
     },
@@ -253,12 +253,12 @@ export const translations: Record<Language, Translations> = {
     courses: {
       title: 'Courses & certificates',
       list: [
-        "Sanity Certification '26",
-        "Contentful Certification '26",
+        "Contentful Certified Professional '26",
+        "Sanity Certified Developer '26",
         "Figma UI UX Design Essentials '25",
         "React Query - React Server State Management '24",
         "NEXT 13 Masters '23",
-        "EPAM end Webinar '20",
+        "EPAM Frontend Webinar '20",
         "Codebrainers Fullstack Bootcamp '19",
       ],
     },
