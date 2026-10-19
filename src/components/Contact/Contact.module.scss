@@ -28,7 +28,8 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  /* copy button sits on the same bottom line as the value, not centred on the label + value block */
+  align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
   padding: 32px 0;
