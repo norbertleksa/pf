@@ -10,7 +10,7 @@ const HeroSection = () => {
   const [isGlitching, setIsGlitching] = useState(true)
   const [showMore, setShowMore] = useState(false)
 
-  // Easter egg: clicking the monogram toggles the retro 90s theme
+  // Easter egg: the pisanka peeking from behind the monogram toggles the retro 90s theme
   const toggleRetro = () => {
     const root = document.documentElement
     if (root.getAttribute('data-theme') === 'retro90s') {
@@ -69,16 +69,46 @@ const HeroSection = () => {
     <section id="hero" className={styles.heroSection}>
       <TopBar />
       <div className={styles.content}>
-        <button
-          type="button"
-          className={styles.monogram}
-          onClick={toggleRetro}
-          aria-hidden="true"
-          tabIndex={-1}
-        >
-          <span className={styles.flap}>N</span>
-          <span className={`${styles.flap} ${styles.flapAccent}`}>L</span>
-        </button>
+        <div className={styles.monogram}>
+          <button
+            type="button"
+            className={styles.egg}
+            onClick={toggleRetro}
+            aria-label="Easter egg"
+            data-easter-egg
+          >
+            <svg viewBox="0 0 100 128" aria-hidden="true">
+              <defs>
+                <clipPath id="egg-shape">
+                  <path d="M50 4C22 4 6 48 6 76c0 28 20 48 44 48s44-20 44-48C94 48 78 4 50 4Z" />
+                </clipPath>
+              </defs>
+              <g clipPath="url(#egg-shape)">
+                <rect width="100" height="128" fill="#d6402f" />
+                <rect y="44" width="100" height="12" fill="#f5b83d" />
+                <rect y="84" width="100" height="12" fill="#f5b83d" />
+                <path
+                  d="M0 70l8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8 8-8 8 8"
+                  fill="none"
+                  stroke="#fff6e5"
+                  strokeWidth="4"
+                  strokeLinejoin="round"
+                />
+                <circle cx="30" cy="26" r="5" fill="#fff6e5" />
+                <circle cx="50" cy="20" r="5" fill="#fff6e5" />
+                <circle cx="70" cy="26" r="5" fill="#fff6e5" />
+                <circle cx="35" cy="110" r="4" fill="#fff6e5" />
+                <circle cx="65" cy="110" r="4" fill="#fff6e5" />
+              </g>
+            </svg>
+          </button>
+          <span className={styles.flap} aria-hidden="true">
+            N
+          </span>
+          <span className={`${styles.flap} ${styles.flapAccent}`} aria-hidden="true">
+            L
+          </span>
+        </div>
         <div className={styles.textContent}>
           <p className="eyebrow">{t.hero.headline} · React / Next.js / Flutter</p>
           <h1

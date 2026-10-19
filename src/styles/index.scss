@@ -184,7 +184,8 @@ section[id] {
   color: #6bec08 !important;
 }
 
-[data-theme='retro90s'] button[aria-hidden] {
+[data-theme='retro90s'] button[aria-hidden],
+[data-theme='retro90s'] button[data-easter-egg] {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
