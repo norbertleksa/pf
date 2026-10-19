@@ -12,10 +12,12 @@ const others = projects.filter((p) => !p.highlight)
 
 // Each project has a shareable link: /pf/#kitopay opens its details straight away
 const projectFromHash = () => projects.find((p) => `#${p.id}` === window.location.hash) ?? null
+const isOtherProjectHash = () => others.some((p) => `#${p.id}` === window.location.hash)
 
 const Projects: React.FC = () => {
   const { t } = useLanguage()
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectFromHash)
+  const [showOthersMobile, setShowOthersMobile] = useState(isOtherProjectHash)
 
   // arriving from a project link: put the page under the dialog at the projects section
   useEffect(() => {
@@ -27,7 +29,10 @@ const Projects: React.FC = () => {
 
   // follow links changed by hand or by back/forward
   useEffect(() => {
-    const onHashChange = () => setSelectedProject(projectFromHash())
+    const onHashChange = () => {
+      setSelectedProject(projectFromHash())
+      if (isOtherProjectHash()) setShowOthersMobile(true)
+    }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
@@ -76,8 +81,38 @@ const Projects: React.FC = () => {
         ))}
 
         <div className={styles.others}>
-          <h3 className="eyebrow">{t.projects.otherProjects}</h3>
-          <div className={styles.projectsGrid}>
+          <button
+            type="button"
+            className={styles.headerButton}
+            onClick={() => setShowOthersMobile((prev) => !prev)}
+            aria-expanded={showOthersMobile}
+            aria-controls="other-projects-grid"
+          >
+            <span className="eyebrow">{t.projects.otherProjects}</span>
+            <span className={styles.mobileIndicator}>
+              <span className={styles.badge}>{others.length}</span>
+              <span className={`${styles.iconWrap} ${showOthersMobile ? styles.iconOpen : ''}`}>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </span>
+            </span>
+          </button>
+
+          <div
+            id="other-projects-grid"
+            className={`${styles.projectsGrid} ${showOthersMobile ? styles.gridVisibleMobile : styles.gridStackedMobile}`}
+          >
             {others.map((project) => (
               <ProjectCard
                 key={project.id}

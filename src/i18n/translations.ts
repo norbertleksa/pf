@@ -37,6 +37,8 @@ export interface Translations {
     gallery: string
     details: string
     otherProjects: string
+    showOtherProjects: string
+    hideOtherProjects: string
   }
   skills: {
     title: string
@@ -172,6 +174,8 @@ export const translations: Record<Language, Translations> = {
       gallery: 'Galeria',
       details: 'Szczegóły i zrzuty',
       otherProjects: 'Pozostałe projekty',
+      showOtherProjects: 'Rozwiń',
+      hideOtherProjects: 'Zwiń',
     },
     skills: {
       title: 'Umiejętności',
@@ -306,6 +310,8 @@ export const translations: Record<Language, Translations> = {
       gallery: 'Gallery',
       details: 'Details & screenshots',
       otherProjects: 'Other projects',
+      showOtherProjects: 'Show',
+      hideOtherProjects: 'Hide',
     },
     skills: {
       title: 'Skills',

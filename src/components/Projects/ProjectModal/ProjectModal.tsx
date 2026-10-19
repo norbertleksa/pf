@@ -124,6 +124,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
 
   if (!isOpen) return null
 
+  const tag = project.tag ?? project.highlight?.tag
   const filterLabel = { all: t.projects.all, wide: t.projects.wide, tall: t.projects.mobile }
 
   return (
@@ -140,10 +141,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
       >
         <header className={styles.header}>
           <div className={styles.titleRow}>
-            {project.highlight && (
-              <span className="eyebrow">{project.highlight.tag[language]}</span>
-            )}
-            <h2 id="project-modal-title" className={styles.title}>
+            {tag && <span className={`eyebrow ${styles.eyebrow}`}>{tag[language]}</span>}
+            <h2 id="project-modal-title" className={styles.title} title={project.name}>
               {project.name}
             </h2>
           </div>

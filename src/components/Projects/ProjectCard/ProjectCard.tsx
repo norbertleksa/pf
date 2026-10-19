@@ -38,6 +38,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }) => {
             />
           </picture>
         )}
+        <span className={styles.cardBadge}>{project.name}</span>
       </div>
       <h3 className={styles.projectName}>{project.name}</h3>
       <p className={styles.projectDescription}>{project.shortDescription[language]}</p>

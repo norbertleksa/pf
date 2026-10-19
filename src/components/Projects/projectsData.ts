@@ -34,6 +34,10 @@ export interface Project {
   githubUrl?: string
   appStoreUrl?: string
   githubHidden?: boolean
+  tag?: {
+    en: string
+    pl: string
+  }
   // Featured projects get a case-study layout with headline numbers
   highlight?: {
     tag: { en: string; pl: string }
@@ -47,6 +51,7 @@ export const projects: Project[] = [
   {
     id: 'kitopay',
     name: 'Kitopay',
+    tag: { en: 'Web app · payments', pl: 'Web app · płatności' },
     highlight: {
       tag: { en: 'Web app · payments', pl: 'Web app · płatności' },
       cover: { index: 0, fill: true },
@@ -111,6 +116,7 @@ export const projects: Project[] = [
   {
     id: 'rightbite',
     name: 'RightBite',
+    tag: { en: 'Web + mobile · meal plans', pl: 'Web + mobile · plany żywieniowe' },
     highlight: {
       tag: { en: 'Web + mobile · meal plans', pl: 'Web + mobile · plany żywieniowe' },
       cover: { index: 0, fill: true },
@@ -182,6 +188,7 @@ export const projects: Project[] = [
   {
     id: 'kitopi-app',
     name: 'Kitopi App',
+    tag: { en: 'Mobile · iOS & Android', pl: 'Mobile · iOS i Android' },
     highlight: {
       tag: { en: 'Mobile · iOS & Android', pl: 'Mobile · iOS i Android' },
       cover: { index: 0 },
@@ -239,6 +246,7 @@ export const projects: Project[] = [
   {
     id: 'skosweb',
     name: 'SKOSWeb',
+    tag: { en: 'Web app · aggregator', pl: 'Web app · agregator' },
     shortDescription: {
       en: 'Multi-brand meal aggregator with multi-tenant architecture.',
       pl: 'Agregator posiłków multi-brand z architekturą multi-tenant.',
@@ -272,6 +280,7 @@ export const projects: Project[] = [
   {
     id: 'kitopi-rewards',
     name: 'Kitopi Rewards',
+    tag: { en: 'Web app · rewards', pl: 'Web app · program nagród' },
     shortDescription: {
       en: 'Landing page for cashback redemption without mobile app.',
       pl: 'Strona docelowa do realizacji cashback bez aplikacji mobilnej.',
@@ -306,6 +315,7 @@ export const projects: Project[] = [
   {
     id: 'brand-lp',
     name: 'Brand LP',
+    tag: { en: 'Web app · landing page', pl: 'Web app · strona docelowa' },
     shortDescription: {
       en: 'Landing page for brand transition from web to mobile app.',
       pl: 'Strona docelowa dla przejścia marki z web na aplikację mobilną.',

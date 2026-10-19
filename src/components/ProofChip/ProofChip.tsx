@@ -7,22 +7,31 @@ const splitStat = (text: string) => {
   return { value, label: label.join(' ') }
 }
 
-const ProofChip = ({ text, details }: { text: string; details: string }) => {
-  const [showDetails, setShowDetail] = useState(false)
+interface ProofChipProps {
+  text: string
+  details: string
+  isOpen?: boolean
+  onToggle?: () => void
+}
+
+const ProofChip = ({ text, details, isOpen, onToggle }: ProofChipProps) => {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const isExpanded = isOpen !== undefined ? isOpen : internalOpen
+  const handleToggle = onToggle ?? (() => setInternalOpen(!internalOpen))
   const { value, label } = splitStat(text)
   return (
     <>
       <button
         type="button"
         className={styles.proofChip}
-        onClick={() => setShowDetail(!showDetails)}
-        aria-expanded={showDetails}
+        onClick={handleToggle}
+        aria-expanded={isExpanded}
       >
         <span className={styles.value}>{value}</span>
         <span className={styles.label}>
           {label}
           <svg
-            className={`${styles.chevron} ${showDetails ? styles.chevronOpen : ''}`}
+            className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -32,7 +41,7 @@ const ProofChip = ({ text, details }: { text: string; details: string }) => {
           </svg>
         </span>
       </button>
-      {showDetails && <p className={styles.details}>{details}</p>}
+      {isExpanded && <p className={styles.details}>{details}</p>}
     </>
   )
 }
