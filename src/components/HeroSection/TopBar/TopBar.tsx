@@ -98,12 +98,6 @@ const TopBar = () => {
               style={styles.navLink}
             />
             <NavButton
-              href="#about"
-              text={t.topBar.about}
-              onClick={(e) => handleNavClick(e, '#about')}
-              style={styles.navLink}
-            />
-            <NavButton
               href="#contact"
               text={t.topBar.contact}
               onClick={(e) => handleNavClick(e, '#contact')}
@@ -191,14 +185,6 @@ const TopBar = () => {
             text={t.topBar.skills}
             onClick={(e) => {
               handleNavClick(e, '#skills')
-              closeMenu()
-            }}
-          />
-          <NavButton
-            href="#about"
-            text={t.topBar.about}
-            onClick={(e) => {
-              handleNavClick(e, '#about')
               closeMenu()
             }}
           />

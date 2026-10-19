@@ -6,7 +6,6 @@ export interface Translations {
     hero: string
     projects: string
     skills: string
-    about: string
     contact: string
   }
   hero: {
@@ -15,6 +14,8 @@ export interface Translations {
     achievements: Array<{ text: string; details: string }>
     scheduleCall: string
     callMe: string
+    readMore: string
+    readLess: string
   }
   projects: {
     title: string
@@ -40,7 +41,6 @@ export interface Translations {
     other: string
   }
   about: {
-    title: string
     content: string
   }
   courses: {
@@ -90,7 +90,6 @@ export const translations: Record<Language, Translations> = {
       hero: 'Start',
       projects: 'Projekty',
       skills: 'Umiejętności',
-      about: 'O mnie',
       contact: 'Kontakt',
     },
     hero: {
@@ -120,6 +119,8 @@ export const translations: Record<Language, Translations> = {
       ],
       scheduleCall: 'Umów Rozmowę',
       callMe: 'Zadzwoń',
+      readMore: 'Dowiedz się więcej',
+      readLess: 'Zwiń',
     },
     projects: {
       title: 'Projekty',
@@ -145,7 +146,6 @@ export const translations: Record<Language, Translations> = {
       other: 'Inne',
     },
     about: {
-      title: 'O mnie',
       content: `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
     },
     courses: {
@@ -192,7 +192,6 @@ export const translations: Record<Language, Translations> = {
       hero: 'Home',
       projects: 'Projects',
       skills: 'Skills',
-      about: 'About',
       contact: 'Contact',
     },
     hero: {
@@ -222,6 +221,8 @@ export const translations: Record<Language, Translations> = {
       ],
       scheduleCall: 'Schedule A Call',
       callMe: 'Call Me',
+      readMore: 'Learn more',
+      readLess: 'Show less',
     },
     projects: {
       title: 'Projects',
@@ -247,7 +248,6 @@ export const translations: Record<Language, Translations> = {
       other: 'Other',
     },
     about: {
-      title: 'About Me',
       content: `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
     },
     courses: {

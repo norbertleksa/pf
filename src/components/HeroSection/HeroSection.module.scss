@@ -20,11 +20,15 @@
   gap: 64px;
 }
 
-/* Split-flap monogram */
+/* Split-flap monogram (also the hidden retro easter egg button) */
 .monogram {
   display: flex;
   gap: 14px;
   flex: 0 0 auto;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: default;
 }
 
 .flap {
@@ -142,6 +146,43 @@
   font-size: 1.25rem;
   line-height: 1.5;
   color: var(--text-secondary);
+}
+
+.more {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.moreToggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: -12px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--accent);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
 }
 
 .achievements {

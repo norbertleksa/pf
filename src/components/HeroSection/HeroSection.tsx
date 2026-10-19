@@ -8,6 +8,17 @@ import TopBar from './TopBar/TopBar'
 const HeroSection = () => {
   const { t } = useLanguage()
   const [isGlitching, setIsGlitching] = useState(true)
+  const [showMore, setShowMore] = useState(false)
+
+  // Easter egg: clicking the monogram toggles the retro 90s theme
+  const toggleRetro = () => {
+    const root = document.documentElement
+    if (root.getAttribute('data-theme') === 'retro90s') {
+      root.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light')
+    } else {
+      root.setAttribute('data-theme', 'retro90s')
+    }
+  }
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
@@ -58,10 +69,16 @@ const HeroSection = () => {
     <section id="hero" className={styles.heroSection}>
       <TopBar />
       <div className={styles.content}>
-        <div className={styles.monogram} aria-hidden="true">
+        <button
+          type="button"
+          className={styles.monogram}
+          onClick={toggleRetro}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
           <span className={styles.flap}>N</span>
           <span className={`${styles.flap} ${styles.flapAccent}`}>L</span>
-        </div>
+        </button>
         <div className={styles.textContent}>
           <p className="eyebrow">{t.hero.headline} · React / Next.js / Flutter</p>
           <h1
@@ -71,6 +88,36 @@ const HeroSection = () => {
             {t.topBar.logoText}
           </h1>
           <p className={styles.description}>{t.hero.description}</p>
+          {showMore && (
+            <div id="about-more" className={styles.more}>
+              {t.about.content.split('\n\n').map((paragraph) => (
+                <p key={paragraph.slice(0, 10)}>{paragraph}</p>
+              ))}
+            </div>
+          )}
+          <button
+            type="button"
+            className={styles.moreToggle}
+            onClick={() => setShowMore(!showMore)}
+            aria-expanded={showMore}
+            aria-controls="about-more"
+          >
+            {showMore ? t.hero.readLess : t.hero.readMore}
+            <svg
+              className={showMore ? styles.chevronOpen : ''}
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
           <ul className={styles.achievements}>
             {t.hero.achievements.map((achievement) => (
               <li key={achievement.text.slice(0, 10)}>
