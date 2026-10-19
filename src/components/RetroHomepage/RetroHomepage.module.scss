@@ -1,0 +1,392 @@
+$pixel: 'Silkscreen', monospace;
+$lcd: 'VT323', monospace;
+$rainbow: #ff3b3b, #ffb13b, #fff03b, #4dff6a, #4da3ff, #c86bff;
+
+.page {
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  line-height: 1.5;
+  background-color: #000;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 120px, #fff, transparent),
+    radial-gradient(2px 2px at 150px 60px, #ffe066, transparent),
+    radial-gradient(1px 1px at 210px 170px, #9cf, transparent),
+    radial-gradient(1px 1px at 60px 200px, #fff, transparent);
+  background-size: 240px 240px;
+
+  a {
+    color: #4da3ff;
+
+    &:hover {
+      color: #ff66ff;
+    }
+  }
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 6px 0;
+  background: #000080;
+  border-bottom: 3px ridge #c0c0c0;
+  font-family: $pixel;
+  font-size: 16px;
+  color: #ffff00;
+
+  span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 22s linear infinite;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.column {
+  width: min(860px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 36px 0 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.titleWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(40px, 7vw, 72px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(90deg, $rainbow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(3px 3px 0 #ff00ff);
+}
+
+.egg {
+  position: absolute;
+  right: -92px;
+  top: -14px;
+  width: 64px;
+  height: 82px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  animation: bob 1.6s ease-in-out infinite;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:focus-visible {
+    outline: 2px dashed #ffff00;
+    outline-offset: 4px;
+  }
+}
+
+.clickMe {
+  position: absolute;
+  right: -160px;
+  top: 74px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  font-size: 15px;
+  color: #ffff00;
+  transform: rotate(-6deg);
+}
+
+/* not enough room beside the title: egg and note go under it */
+@media (max-width: 1140px) {
+  .egg,
+  .clickMe {
+    position: static;
+    margin-top: 12px;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(8deg);
+  }
+}
+
+.subtitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #4dff6a;
+  text-align: center;
+}
+
+.construction {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg, #ffd400 0 22px, #111 22px 44px);
+  border: 3px ridge #c0c0c0;
+
+  span {
+    padding: 4px 12px;
+    background: #111;
+    color: #ffd400;
+    font-family: $pixel;
+    font-size: 16px;
+  }
+}
+
+.counter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  em {
+    color: #c0c0c0;
+  }
+}
+
+.digits {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: #222;
+  border: 2px inset #808080;
+
+  span {
+    width: 22px;
+    text-align: center;
+    background: #000;
+    color: #ff3b3b;
+    font-family: $lcd;
+    font-size: 30px;
+    line-height: 1;
+  }
+}
+
+.rainbow {
+  width: 100%;
+  height: 6px;
+  border: 0;
+  background: linear-gradient(90deg, $rainbow, #ff3b3b);
+}
+
+.table {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border: 4px ridge #c0c0c0;
+}
+
+.nav {
+  flex: 1 0 200px;
+  max-width: 100%;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #c0c0c0;
+  color: #000;
+
+  b {
+    font-family: $pixel;
+    font-size: 14px;
+    color: #000080;
+  }
+
+  a {
+    color: #0000ee;
+
+    &:visited {
+      color: #551a8b;
+    }
+  }
+}
+
+.nowPlaying {
+  margin-top: 14px;
+  padding: 8px;
+  background: #000;
+  border: 2px inset #808080;
+  font-family: $lcd;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #3cff3c;
+}
+
+.content {
+  flex: 999 1 420px;
+  min-width: 0;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  background: #000033;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h2 {
+    font-size: 28px;
+    color: #ffff00;
+    text-decoration: underline;
+  }
+}
+
+.stats {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-family: $lcd;
+  font-size: 24px;
+  color: #4dff6a;
+}
+
+.projects {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.projectLink {
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: #4da3ff;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff66ff;
+  }
+}
+
+.new {
+  margin-left: 6px;
+  padding: 1px 4px;
+  background: #ff0000;
+  color: #fff;
+  font-family: $pixel;
+  font-size: 11px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.hint {
+  font-size: 15px;
+  font-style: italic;
+  color: #c0c0c0;
+}
+
+.guestbook {
+  padding: 16px;
+  border: 3px dashed #ff66ff;
+}
+
+.email {
+  font-size: 26px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.badges {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+
+  li {
+    width: 88px;
+    height: 31px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    font-family: $pixel;
+    font-size: 8px;
+    line-height: 1.1;
+    text-align: center;
+
+    b {
+      font-size: 11px;
+    }
+  }
+}
+
+.badgeReact {
+  background: #000;
+  color: #61dafb;
+}
+
+.badgeFlutter {
+  background: #02569b;
+  color: #fff;
+}
+
+.badgeBest {
+  background: #c0c0c0;
+  color: #000;
+  border: 2px outset #fff !important;
+}
+
+.badgeAi {
+  background: #ff00ff;
+  color: #ffff00;
+}
+
+.badgeNl {
+  background: #000;
+  color: #4dff6a;
+  border-color: #4dff6a !important;
+}
+
+.footer {
+  font-size: 15px;
+  color: #c0c0c0;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee span,
+  .egg,
+  .new {
+    animation: none;
+  }
+}

@@ -67,6 +67,25 @@ export interface Translations {
     copyright: string
     backToTop: string
   }
+  retro: {
+    marquee: string
+    title: string
+    clickMe: string
+    underConstruction: string
+    visitor: string
+    justYou: string
+    navigation: string
+    aboutMe: string
+    aboutText: string
+    myProjects: string
+    clickProject: string
+    skills: string
+    guestbook: string
+    emailMe: string
+    orCall: string
+    nowPlaying: string
+    bestViewed: string
+  }
   common: {
     language: string
   }
@@ -182,6 +201,27 @@ export const translations: Record<Language, Translations> = {
       copyright: '© {{year}} Norbert Leksa. Wszelkie prawa zastrzeżone.',
       backToTop: 'Na górę',
     },
+    retro: {
+      marquee:
+        '*** WITAJ NA STRONIE DOMOWEJ NORBERTA *** DZIĘKI ZA ODWIEDZINY *** WPISZ SIĘ DO KSIĘGI GOŚCI!!! *** TERAZ Z 3 CASE STUDIES ***',
+      title: 'Strona domowa Norberta Leksy',
+      clickMe: '← kliknij, żeby wrócić!',
+      underConstruction: 'STRONA W BUDOWIE',
+      visitor: 'Jesteś gościem nr',
+      justYou: '(to tylko Ty, cześć!)',
+      navigation: 'NAWIGACJA',
+      aboutMe: 'O mnie',
+      aboutText:
+        'Cześć!!! Buduję skalowalne aplikacje webowe w React/Next.js i funkcje mobilne we Flutterze. Z moich rzeczy korzystają dziesiątki tysięcy ludzi. Dzięki, że wpadłeś do mojego kącika sieci!',
+      myProjects: 'Moje projekty',
+      clickProject: '(kliknij projekt, żeby zobaczyć zrzuty!)',
+      skills: 'Umiejętności i certyfikaty',
+      guestbook: 'Wpisz się do księgi gości!!',
+      emailMe: 'Napisz do mnie!',
+      orCall: 'albo zadzwoń:',
+      nowPlaying: '♪ TERAZ GRA',
+      bestViewed: 'Najlepiej oglądać w Netscape Navigator 4.0 w 800×600',
+    },
     common: {
       language: 'Język',
     },
@@ -283,6 +323,27 @@ export const translations: Record<Language, Translations> = {
     footer: {
       copyright: '© {{year}} Norbert Leksa. All rights reserved.',
       backToTop: 'Back to top',
+    },
+    retro: {
+      marquee:
+        "*** WELCOME TO NORBERT'S HOMEPAGE *** THANKS FOR STOPPING BY *** SIGN MY GUESTBOOK!!! *** NOW WITH 3 CASE STUDIES ***",
+      title: "Norbert Leksa's Homepage",
+      clickMe: '← click me to go back!',
+      underConstruction: 'UNDER CONSTRUCTION',
+      visitor: 'You are visitor no.',
+      justYou: "(it's just you, hi!)",
+      navigation: 'NAVIGATION',
+      aboutMe: 'About me',
+      aboutText:
+        'Hi!!! I build scalable web apps in React/Next.js and mobile features in Flutter. My stuff is used by tens of thousands of people. Thanks for visiting my corner of the web!',
+      myProjects: 'My Projects',
+      clickProject: '(click a project to see the screenshots!)',
+      skills: 'Skills & Certificates',
+      guestbook: 'Sign my Guestbook!!',
+      emailMe: 'E-mail me!',
+      orCall: 'or call:',
+      nowPlaying: '♪ NOW PLAYING',
+      bestViewed: 'Best viewed in Netscape Navigator 4.0 at 800×600',
     },
     common: {
       language: 'Language',

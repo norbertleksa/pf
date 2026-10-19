@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { trackEvent } from '../../utils/analytics'
+import { toggleRetro } from '../../utils/retro'
 import ProofChip from '../ProofChip/ProofChip'
 import styles from './HeroSection.module.scss'
 import TopBar from './TopBar/TopBar'
@@ -9,42 +10,6 @@ const HeroSection = () => {
   const { t } = useLanguage()
   const [isGlitching, setIsGlitching] = useState(true)
   const [showMore, setShowMore] = useState(false)
-
-  const retroMusic = useRef<HTMLAudioElement | null>(null)
-
-  // Easter egg: the pisanka peeking from behind the monogram toggles the retro 90s theme (with music)
-  const toggleRetro = () => {
-    const root = document.documentElement
-    if (root.getAttribute('data-theme') === 'retro90s') {
-      root.setAttribute('data-theme', localStorage.getItem('portfolio-theme') || 'light')
-    } else {
-      root.setAttribute('data-theme', 'retro90s')
-      if (!retroMusic.current) {
-        retroMusic.current = new Audio(`${import.meta.env.BASE_URL}audio/64-bit-adventure.mp3`)
-        retroMusic.current.loop = true
-        retroMusic.current.volume = 0.4
-      }
-      // play() must start inside the click handler, or browsers block it as autoplay
-      retroMusic.current.play().catch(() => {})
-    }
-  }
-
-  // Stop the music whenever retro mode ends, also via the theme toggle in the top bar
-  useEffect(() => {
-    const root = document.documentElement
-    const observer = new MutationObserver(() => {
-      const music = retroMusic.current
-      if (music && root.getAttribute('data-theme') !== 'retro90s') {
-        music.pause()
-        music.currentTime = 0
-      }
-    })
-    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] })
-    return () => {
-      observer.disconnect()
-      retroMusic.current?.pause()
-    }
-  }, [])
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
@@ -101,7 +66,6 @@ const HeroSection = () => {
             className={styles.egg}
             onClick={toggleRetro}
             aria-label="Easter egg"
-            data-easter-egg
           >
             <svg viewBox="0 0 100 128" aria-hidden="true">
               <defs>
