@@ -4,6 +4,23 @@ import { useTheme } from '../../../contexts/ThemeContext'
 import NavButton from './NavButton'
 import styles from './TopBar.module.scss'
 
+const GlobeIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+)
+
 const TopBar = () => {
   const { language, setLanguage, t } = useLanguage()
   const { theme, toggleTheme } = useTheme()
@@ -114,8 +131,10 @@ const TopBar = () => {
               className={styles.languageButton}
               onClick={toggleLanguage}
               title={t.common.language}
+              aria-label={`${t.common.language}: ${language.toUpperCase()}`}
             >
-              {language === 'pl' ? 'EN' : 'PL'}
+              <GlobeIcon />
+              {language.toUpperCase()}
             </button>
             <button
               type="button"
@@ -211,8 +230,10 @@ const TopBar = () => {
                 toggleLanguage()
               }}
               title={t.common.language}
+              aria-label={`${t.common.language}: ${language.toUpperCase()}`}
             >
-              {language === 'pl' ? 'EN' : 'PL'}
+              <GlobeIcon />
+              {language.toUpperCase()}
             </button>
             <button
               type="button"
