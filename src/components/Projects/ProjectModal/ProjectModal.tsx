@@ -106,6 +106,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     setGrid(false)
   }, [project.id])
 
+  // `language` is not read inside, but the tab labels change width with it, so measure again
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-measure the glider when the language changes
   useLayoutEffect(() => {
     if (!showTabs || !isOpen) return
     const updateGlider = () => {
