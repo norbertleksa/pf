@@ -102,3 +102,173 @@
   font-weight: 700;
   color: var(--accent);
 }
+
+.mobileTabs {
+  display: none;
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileTabs {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-top: 24px;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    isolation: isolate;
+  }
+
+  .sliderGlider {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    border-radius: 999px;
+    background: var(--flap-accent);
+    transition: transform 0.46s cubic-bezier(0.5, 0, 0.2, 1.38);
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  .slideRight {
+    transform: translateX(100%);
+  }
+
+  .tab {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.35s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .tabActive {
+    color: #0e1013;
+    font-weight: 700;
+  }
+
+  .layout {
+    margin-top: 24px;
+    gap: 0;
+    touch-action: pan-y;
+  }
+
+  .skillsList {
+    flex: 1 1 100%;
+    border-bottom: none;
+  }
+
+  .aside {
+    flex: 1 1 100%;
+    gap: 40px;
+  }
+
+  .skillRow {
+    padding: 14px 0;
+    gap: 6px 16px;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .courses {
+    border-bottom: none;
+  }
+
+  .course:first-child {
+    border-top: none;
+  }
+
+  .categoryTitle {
+    flex: 0 0 auto;
+    min-width: 85px;
+    font-size: 0.75rem;
+    padding-top: 2px;
+  }
+
+  .skills {
+    flex: 1 1 200px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .panelHiddenMobile {
+    display: none !important;
+  }
+
+  .skillsList:not(.panelHiddenMobile) {
+    animation: slideFromLeft 0.25s ease-out;
+  }
+
+  .aside:not(.panelHiddenMobile) {
+    animation: slideFromRight 0.25s ease-out;
+  }
+
+  .languages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .language {
+    padding: 12px 6px;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .level {
+    font-size: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sliderGlider {
+    transition: none;
+  }
+
+  .skillsList:not(.panelHiddenMobile),
+  .aside:not(.panelHiddenMobile) {
+    animation: none;
+  }
+}
