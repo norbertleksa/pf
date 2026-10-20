@@ -55,23 +55,12 @@
 
   /* Mobile: interactive trigger */
   @media (max-width: 768px) {
+    min-height: 52px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
-    &:hover {
-      :global(.eyebrow) {
-        color: var(--text-primary);
-      }
-
-      .badge {
-        border-color: var(--accent);
-        color: var(--text-primary);
-      }
-
-      .iconWrap {
-        border-color: var(--accent);
-        color: var(--accent);
-        transform: translateY(1px);
-      }
+    &:hover :global(.eyebrow) {
+      color: var(--text-primary);
     }
 
     &:focus-visible {
@@ -82,56 +71,9 @@
   }
 }
 
-.mobileIndicator {
-  display: none;
-
-  @media (max-width: 768px) {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  line-height: 1;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.iconWrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  color: var(--text-muted);
-  transition: border-color 0.3s ease, color 0.3s ease;
-
-  svg {
-    display: block;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
-
-.iconOpen {
-  border-color: var(--accent);
-  color: var(--accent);
-
-  svg {
-    transform: rotate(180deg);
+@media (max-width: 768px) {
+  .headerButtonOpen :global(.eyebrow) {
+    color: var(--text-primary);
   }
 }
 
@@ -194,6 +136,27 @@
       transition-delay: 0.1s;
     }
 
+    /* The closed stack "breathes": the lower cards slide down a little and back every few seconds,
+       so a bare title is enough to show there is more to tap */
+    > *:nth-child(n + 2) {
+      animation: stackNudge 5.5s ease-in-out infinite;
+    }
+
+    > *:nth-child(3) {
+      animation-delay: 0.12s;
+    }
+
+    > *:hover,
+    > *:active {
+      animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      > * {
+        animation: none !important;
+      }
+    }
+
     /* Subtle lift when touching/hovering a card in the stack */
     > *:nth-child(1):hover,
     > *:nth-child(1):active {
@@ -240,5 +203,25 @@
       margin-top: 16px;
       transition-delay: 0.1s;
     }
+  }
+}
+
+@keyframes stackNudge {
+  0%,
+  62%,
+  100% {
+    transform: translateY(0);
+  }
+
+  74% {
+    transform: translateY(12px);
+  }
+
+  86% {
+    transform: translateY(-3px);
+  }
+
+  94% {
+    transform: translateY(1px);
   }
 }

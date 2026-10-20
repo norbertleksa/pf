@@ -14,8 +14,23 @@ const others = projects.filter((p) => !p.highlight)
 const projectFromHash = () => projects.find((p) => `#${p.id}` === window.location.hash) ?? null
 const isOtherProjectHash = () => others.some((p) => `#${p.id}` === window.location.hash)
 
+const MOBILE_QUERY = '(max-width: 768px)'
+
+// true on phones, where "Other projects" is a stack of overlapping cards
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches)
+  useEffect(() => {
+    const media = window.matchMedia(MOBILE_QUERY)
+    const onChange = () => setIsMobile(media.matches)
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
+  return isMobile
+}
+
 const Projects: React.FC = () => {
   const { t } = useLanguage()
+  const isMobile = useIsMobile()
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectFromHash)
   const [showOthersMobile, setShowOthersMobile] = useState(isOtherProjectHash)
 
@@ -83,30 +98,12 @@ const Projects: React.FC = () => {
         <div className={styles.others}>
           <button
             type="button"
-            className={styles.headerButton}
+            className={`${styles.headerButton} ${showOthersMobile ? styles.headerButtonOpen : ''}`}
             onClick={() => setShowOthersMobile((prev) => !prev)}
             aria-expanded={showOthersMobile}
             aria-controls="other-projects-grid"
           >
             <span className="eyebrow">{t.projects.otherProjects}</span>
-            <span className={styles.mobileIndicator}>
-              <span className={styles.badge}>{others.length}</span>
-              <span className={`${styles.iconWrap} ${showOthersMobile ? styles.iconOpen : ''}`}>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </span>
-            </span>
           </button>
 
           <div
@@ -117,7 +114,13 @@ const Projects: React.FC = () => {
               <ProjectCard
                 key={project.id}
                 project={project}
-                onOpenModal={() => setSelectedProject(project)}
+                // a closed stack has no room for the cards' content: the first tap spreads it,
+                // the next tap on a card opens the project (the title folds the stack back)
+                onOpenModal={() =>
+                  isMobile && !showOthersMobile
+                    ? setShowOthersMobile(true)
+                    : setSelectedProject(project)
+                }
               />
             ))}
           </div>

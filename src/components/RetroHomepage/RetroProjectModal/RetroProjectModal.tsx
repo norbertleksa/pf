@@ -39,6 +39,7 @@ const RetroProjectModal: React.FC<RetroProjectModalProps> = ({
   }
 
   // Reset screenshot index on project change
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the project changes, not when index does
   useEffect(() => {
     setIndex(0)
   }, [project.id])
@@ -93,6 +94,7 @@ const RetroProjectModal: React.FC<RetroProjectModalProps> = ({
       onKeyDown={(e) => e.key === 'Escape' && onClose()}
       role="presentation"
     >
+      {/* biome-ignore lint/a11y/useSemanticElements: custom retro window; native <dialog> would need showModal() wiring */}
       <div
         role="dialog"
         aria-modal="true"
@@ -280,9 +282,7 @@ const RetroProjectModal: React.FC<RetroProjectModalProps> = ({
 
           {/* Project Details Panel */}
           <fieldset className={styles.infoFieldset}>
-            <legend className={styles.legend}>
-              === {project.name.toUpperCase()}.TXT ===
-            </legend>
+            <legend className={styles.legend}>=== {project.name.toUpperCase()}.TXT ===</legend>
 
             <div className={styles.headerRow}>
               <h2 className={styles.projectTitle}>{project.name}</h2>
@@ -340,12 +340,8 @@ const RetroProjectModal: React.FC<RetroProjectModalProps> = ({
           <div className={styles.statusPart}>
             <span className={styles.led} /> {t.retro.statusBarReady}
           </div>
-          <div className={`${styles.statusPart} ${styles.hideSmall}`}>
-            {t.retro.statusBarBaud}
-          </div>
-          <div className={`${styles.statusPart} ${styles.hideSmall}`}>
-            {t.retro.statusBarRes}
-          </div>
+          <div className={`${styles.statusPart} ${styles.hideSmall}`}>{t.retro.statusBarBaud}</div>
+          <div className={`${styles.statusPart} ${styles.hideSmall}`}>{t.retro.statusBarRes}</div>
           <div className={styles.statusPart}>
             PAGE {current + 1}/{Math.max(n, 1)}
           </div>
