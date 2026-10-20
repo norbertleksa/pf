@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { toggleRetro } from '../../utils/retro'
-import ProjectModal from '../Projects/ProjectModal/ProjectModal'
 import { type Project, projects } from '../Projects/projectsData'
 import { skillsData } from '../Skills/skillsData'
 import styles from './RetroHomepage.module.scss'
+import RetroProjectModal from './RetroProjectModal/RetroProjectModal'
 
 const visitorDigits = ['0', '0', '0', '0', '0', '1']
 
@@ -183,7 +183,7 @@ const RetroHomepage = () => {
       </main>
 
       {selected && (
-        <ProjectModal
+        <RetroProjectModal
           project={selected}
           isOpen
           onClose={() => setSelected(null)}

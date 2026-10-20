@@ -15,6 +15,7 @@ const HeroSection = () => {
   const { t } = useLanguage()
   const [isGlitching, setIsGlitching] = useState(true)
   const [showMore, setShowMore] = useState(false)
+  const [activeAchievement, setActiveAchievement] = useState<number | null>(null)
   // each flap: current character + a tick that restarts the flip animation on every change
   const [flaps, setFlaps] = useState(() =>
     FLAP_TARGET.map((char) => ({ char: prefersReducedMotion() ? char : ' ', tick: 0 }))
@@ -182,11 +183,22 @@ const HeroSection = () => {
             </svg>
           </button>
           <ul className={styles.achievements}>
-            {t.hero.achievements.map((achievement) => (
-              <li key={achievement.text.slice(0, 10)}>
-                <ProofChip text={achievement.text} details={achievement.details} />
-              </li>
-            ))}
+            {t.hero.achievements.map((achievement, idx) => {
+              const isOpen = activeAchievement === idx
+              return (
+                <li
+                  key={achievement.text.slice(0, 10)}
+                  className={`${styles.achievementItem} ${isOpen ? styles.achievementItemExpanded : ''}`}
+                >
+                  <ProofChip
+                    text={achievement.text}
+                    details={achievement.details}
+                    isOpen={isOpen}
+                    onToggle={() => setActiveAchievement((prev) => (prev === idx ? null : idx))}
+                  />
+                </li>
+              )
+            })}
           </ul>
           <div className={styles.actions}>
             <button

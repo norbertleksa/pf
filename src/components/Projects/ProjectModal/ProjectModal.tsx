@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLanguage } from '../../../contexts/LanguageContext'
 import { type Project, imageVariant, projects } from '../projectsData'
 import styles from './ProjectModal.module.scss'
@@ -80,6 +80,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   const [index, setIndex] = useState(0)
   const [grid, setGrid] = useState(false)
   const touchStartX = useRef<number | null>(null)
+  const tabsRef = useRef<HTMLDivElement>(null)
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
+  const [glider, setGlider] = useState<{ left: number; width: number } | null>(null)
 
   const countOf = (f: Filter) =>
     f === 'all' ? shots.length : shots.filter((s) => orientations[s] === f).length
@@ -103,6 +106,29 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     setGrid(false)
   }, [project.id])
 
+  useLayoutEffect(() => {
+    if (!showTabs || !isOpen) return
+    const updateGlider = () => {
+      const btn = tabRefs.current[filter]
+      const container = tabsRef.current
+      if (btn && container) {
+        const btnRect = btn.getBoundingClientRect()
+        const containerRect = container.getBoundingClientRect()
+        setGlider({
+          left: btnRect.left - containerRect.left,
+          width: btnRect.width,
+        })
+      }
+    }
+    updateGlider()
+    const raf = requestAnimationFrame(updateGlider)
+    window.addEventListener('resize', updateGlider)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', updateGlider)
+    }
+  }, [filter, language, showTabs, isOpen])
+
   useEffect(() => {
     if (!isOpen) return
     document.body.style.overflow = 'hidden'
@@ -124,6 +150,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
 
   if (!isOpen) return null
 
+  const tag = project.tag ?? project.highlight?.tag
   const filterLabel = { all: t.projects.all, wide: t.projects.wide, tall: t.projects.mobile }
 
   return (
@@ -140,10 +167,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
       >
         <header className={styles.header}>
           <div className={styles.titleRow}>
-            {project.highlight && (
-              <span className="eyebrow">{project.highlight.tag[language]}</span>
-            )}
-            <h2 id="project-modal-title" className={styles.title}>
+            {tag && <span className={`eyebrow ${styles.eyebrow}`}>{tag[language]}</span>}
+            <h2 id="project-modal-title" className={styles.title} title={project.name}>
               {project.name}
             </h2>
           </div>
@@ -182,11 +207,29 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
           {n > 0 && (
             <div className={styles.gallery}>
               <div className={styles.toolbar}>
-                {showTabs ? (
-                  <div role="tablist" aria-label={t.projects.gallery} className={styles.tabs}>
+                {showTabs && (
+                  <div
+                    ref={tabsRef}
+                    role="tablist"
+                    aria-label={t.projects.gallery}
+                    className={styles.tabs}
+                  >
+                    {glider && (
+                      <div
+                        className={styles.sliderGlider}
+                        style={{
+                          transform: `translateX(${glider.left}px)`,
+                          width: `${glider.width}px`,
+                        }}
+                        aria-hidden="true"
+                      />
+                    )}
                     {FILTERS.map((f) => (
                       <button
                         key={f}
+                        ref={(el) => {
+                          tabRefs.current[f] = el
+                        }}
                         type="button"
                         role="tab"
                         aria-selected={filter === f}
@@ -200,8 +243,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                       </button>
                     ))}
                   </div>
-                ) : (
-                  <span />
                 )}
                 <div className={styles.toolbarEnd}>
                   {!grid && (
@@ -216,20 +257,37 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                       aria-pressed={grid}
                       onClick={() => setGrid(!grid)}
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        aria-hidden="true"
-                      >
-                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" rx="1" />
-                      </svg>
+                      {grid ? (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="m12 19-7-7 7-7" />
+                          <path d="M19 12H5" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          aria-hidden="true"
+                        >
+                          <rect x="3" y="3" width="7" height="7" rx="1" />
+                          <rect x="14" y="3" width="7" height="7" rx="1" />
+                          <rect x="3" y="14" width="7" height="7" rx="1" />
+                          <rect x="14" y="14" width="7" height="7" rx="1" />
+                        </svg>
+                      )}
                       {grid ? t.projects.backToViewer : t.projects.allScreenshots}
                     </button>
                   )}

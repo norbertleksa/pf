@@ -26,10 +26,112 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.headerButton {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  text-align: left;
 
   :global(.eyebrow) {
     color: var(--text-muted);
     font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  /* Desktop: regular heading appearance, always open */
+  @media (min-width: 769px) {
+    cursor: default;
+    pointer-events: none;
+    min-height: 0;
+  }
+
+  /* Mobile: interactive trigger */
+  @media (max-width: 768px) {
+    cursor: pointer;
+
+    &:hover {
+      :global(.eyebrow) {
+        color: var(--text-primary);
+      }
+
+      .badge {
+        border-color: var(--accent);
+        color: var(--text-primary);
+      }
+
+      .iconWrap {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(1px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.mobileIndicator {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  transition: border-color 0.3s ease, color 0.3s ease;
+
+  svg {
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.iconOpen {
+  border-color: var(--accent);
+  color: var(--accent);
+
+  svg {
+    transform: rotate(180deg);
   }
 }
 
@@ -37,4 +139,106 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
+
+  /* Always standard grid on desktop */
+  @media (min-width: 769px) {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    gap: 16px !important;
+    padding-bottom: 0 !important;
+
+    > * {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+/* Mobile-only: card deck stack (closed) & full list (open) */
+@media (max-width: 768px) {
+  .projectsGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  /* Deck of cards: each subsequent card lies on top, showing ~20% of the card underneath */
+  .gridStackedMobile {
+    > * {
+      position: relative;
+      transition: margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.3s ease,
+                  box-shadow 0.5s ease,
+                  border-color 0.2s ease;
+    }
+
+    > *:nth-child(1) {
+      z-index: 1;
+      margin-top: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    > *:nth-child(2) {
+      z-index: 2;
+      margin-top: -275px;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.15);
+      transition-delay: 0.05s;
+    }
+
+    > *:nth-child(3) {
+      z-index: 3;
+      margin-top: -275px;
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.18);
+      transition-delay: 0.1s;
+    }
+
+    /* Subtle lift when touching/hovering a card in the stack */
+    > *:nth-child(1):hover,
+    > *:nth-child(1):active {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      z-index: 4;
+    }
+
+    > *:nth-child(2):hover,
+    > *:nth-child(2):active {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      z-index: 4;
+    }
+
+    > *:nth-child(3):hover,
+    > *:nth-child(3):active {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+  }
+
+  /* Unstacked full list when opened */
+  .gridVisibleMobile {
+    > * {
+      position: relative;
+      transform: translateY(0);
+      box-shadow: none;
+      transition: margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.3s ease,
+                  box-shadow 0.5s ease;
+    }
+
+    > *:nth-child(1) {
+      margin-top: 0;
+    }
+
+    > *:nth-child(2) {
+      margin-top: 16px;
+      transition-delay: 0.05s;
+    }
+
+    > *:nth-child(3) {
+      margin-top: 16px;
+      transition-delay: 0.1s;
+    }
+  }
 }

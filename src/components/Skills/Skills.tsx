@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import type React from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
 import styles from './Skills.module.scss'
@@ -9,15 +10,77 @@ const splitCourse = (course: string) => {
   return match ? { name: match[1], year: `20${match[2]}` } : { name: course, year: '' }
 }
 
+type TabType = 'skills' | 'aside'
+
 const Skills: React.FC = () => {
   const { t } = useLanguage()
+  const [activeTab, setActiveTab] = useState<TabType>('skills')
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
+
+  const isSkillsActive = activeTab === 'skills'
+  const isAsideActive = activeTab === 'aside'
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    const dy = e.changedTouches[0].clientY - touchStartY.current
+    touchStartX.current = null
+    touchStartY.current = null
+
+    // Require intentional horizontal swipe (at least 40px and dominant over vertical scroll)
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0 && activeTab === 'skills') {
+        setActiveTab('aside')
+      } else if (dx > 0 && activeTab === 'aside') {
+        setActiveTab('skills')
+      }
+    }
+  }
 
   return (
     <section id="skills" className="section">
       <div className="section-inner">
         <h2 className="section-title">{t.skills.title}</h2>
-        <div className={styles.layout}>
-          <dl className={styles.skillsList}>
+
+        <div role="tablist" aria-label={t.skills.title} className={styles.mobileTabs}>
+          <div
+            className={`${styles.sliderGlider} ${isAsideActive ? styles.slideRight : ''}`}
+            aria-hidden="true"
+          />
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isSkillsActive}
+            className={`${styles.tab} ${isSkillsActive ? styles.tabActive : ''}`}
+            onClick={() => setActiveTab('skills')}
+          >
+            {t.skills.skillsTab}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isAsideActive}
+            className={`${styles.tab} ${isAsideActive ? styles.tabActive : ''}`}
+            onClick={() => setActiveTab('aside')}
+          >
+            {t.skills.coursesAndLangsTab}
+          </button>
+        </div>
+
+        <div
+          className={styles.layout}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <dl
+            className={`${styles.skillsList} ${!isSkillsActive ? styles.panelHiddenMobile : ''}`}
+          >
             {skillsData.map((category) => (
               <div key={category.id} className={styles.skillRow}>
                 <dt className={styles.categoryTitle}>
@@ -28,7 +91,9 @@ const Skills: React.FC = () => {
             ))}
           </dl>
 
-          <div className={styles.aside}>
+          <div
+            className={`${styles.aside} ${!isAsideActive ? styles.panelHiddenMobile : ''}`}
+          >
             <div id="courses" className={styles.block}>
               <h3 className={styles.blockTitle}>{t.courses.title}</h3>
               <ol className={styles.courses}>

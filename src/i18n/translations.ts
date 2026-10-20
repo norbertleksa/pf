@@ -37,6 +37,8 @@ export interface Translations {
     gallery: string
     details: string
     otherProjects: string
+    showOtherProjects: string
+    hideOtherProjects: string
   }
   skills: {
     title: string
@@ -48,6 +50,8 @@ export interface Translations {
     payments: string
     design: string
     other: string
+    skillsTab: string
+    coursesAndLangsTab: string
   }
   about: {
     content: string
@@ -94,6 +98,19 @@ export interface Translations {
     orCall: string
     nowPlaying: string
     bestViewed: string
+    galleryTitle: string
+    prevProject: string
+    nextProject: string
+    prevShot: string
+    nextShot: string
+    close: string
+    statusBarReady: string
+    statusBarBaud: string
+    statusBarRes: string
+    viewCode: string
+    viewLive: string
+    techStack: string
+    achievements: string
   }
   common: {
     language: string
@@ -172,6 +189,8 @@ export const translations: Record<Language, Translations> = {
       gallery: 'Galeria',
       details: 'Szczegóły i zrzuty',
       otherProjects: 'Pozostałe projekty',
+      showOtherProjects: 'Rozwiń',
+      hideOtherProjects: 'Zwiń',
     },
     skills: {
       title: 'Umiejętności',
@@ -183,6 +202,8 @@ export const translations: Record<Language, Translations> = {
       payments: 'Płatności',
       design: 'Design',
       other: 'Inne',
+      skillsTab: 'Technologie',
+      coursesAndLangsTab: 'Kursy i języki',
     },
     about: {
       content: `Jestem Senior Software Developerem z ${years}+ latami doświadczenia komercyjnego w budowaniu skalowalnych aplikacji webowych i dostarczaniu funkcjonalności mobilnych. Mam mocne zaplecze w React/TypeScript (m.in. Next.js, React Query, Redux) oraz w testowaniu i jakości (Playwright, Vitest, Jest, Cypress), dzięki czemu dowożę stabilne funkcje i dbam o przewidywalny rozwój produktu. W codziennej pracy stawiam na wydajność (code splitting, lazy loading, memoizacja), dobrą architekturę frontendu, czytelne UI oraz współpracę z backendem przy integracjach API i systemach produkcyjnych.\n\nPoza stricte UI mam doświadczenie w trudniejszych obszarach produktowych: integracje (w tym płatności), dopinanie przepływów end‑to‑end, rozwiązywanie edge case’ów i optymalizacja procesów w zespole (automatyzacje, narzędzia usprawniające delivery). Jestem inżynierem informatyki (studia kierunkowe) i swobodnie pracuję po angielsku na poziomie C2, także w środowisku międzynarodowym.\n\nStale podnoszę umiejętności: regularnie uczę się z kursów (m.in. Next 13, React Query, UI/UX w Figma) i wdrażam usprawnienia do codziennego workflow, w tym rozsądne wykorzystanie narzędzi AI jako wsparcia w analizie, refaktorach i zwiększaniu jakości kodu.`,
@@ -241,6 +262,19 @@ export const translations: Record<Language, Translations> = {
       orCall: 'albo zadzwoń:',
       nowPlaying: '♪ TERAZ GRA',
       bestViewed: 'Najlepiej oglądać w Netscape Navigator 4.0 w 800×600',
+      galleryTitle: 'PROJECT_VIEWER.EXE',
+      prevProject: '← Poprzedni projekt',
+      nextProject: 'Następny projekt →',
+      prevShot: '← Poprzedni',
+      nextShot: 'Następny →',
+      close: 'Zamknij',
+      statusBarReady: 'GOTOWE',
+      statusBarBaud: '56.6k DIAL-UP OK',
+      statusBarRes: '800×600 256 KOLORÓW',
+      viewCode: '★ KOD ŹRÓDŁOWY ★',
+      viewLive: '★ ZOBACZ LIVE! ★',
+      techStack: 'STOS TECHNOLOGICZNY:',
+      achievements: 'OSIĄGNIĘCIA:',
     },
     common: {
       language: 'Język',
@@ -306,6 +340,8 @@ export const translations: Record<Language, Translations> = {
       gallery: 'Gallery',
       details: 'Details & screenshots',
       otherProjects: 'Other projects',
+      showOtherProjects: 'Show',
+      hideOtherProjects: 'Hide',
     },
     skills: {
       title: 'Skills',
@@ -317,6 +353,8 @@ export const translations: Record<Language, Translations> = {
       payments: 'Payments',
       design: 'Design',
       other: 'Other',
+      skillsTab: 'Tech Stack',
+      coursesAndLangsTab: 'Courses & Languages',
     },
     about: {
       content: `I’m a Senior Software Developer with ${years}+ years of commercial experience building scalable web applications and delivering mobile features. My core stack is React/TypeScript (including Next.js, React Query, Redux), with a strong focus on quality and testing (Playwright, Vitest, Jest, Cypress). I care about performance and maintainability—clean frontend architecture, reliable UX flows, and practical optimizations (code splitting, lazy loading, memoization).\n\nBeyond UI, I’m comfortable with end-to-end product work: API integrations (including payments), handling edge cases, and improving team delivery through automation and tooling. I hold a Computer Science engineering degree and I work fluently in English at C2 level in international environments.\n\nI’m committed to continuous learning—actively upskilling through courses (e.g., Next 13, React Query, Figma UI/UX) and improving my daily developer workflow, including thoughtful use of AI tools to support analysis, refactoring, and code quality.`,
@@ -375,6 +413,19 @@ export const translations: Record<Language, Translations> = {
       orCall: 'or call:',
       nowPlaying: '♪ NOW PLAYING',
       bestViewed: 'Best viewed in Netscape Navigator 4.0 at 800×600',
+      galleryTitle: 'PROJECT_VIEWER.EXE',
+      prevProject: '← Prev Project',
+      nextProject: 'Next Project →',
+      prevShot: '← Prev',
+      nextShot: 'Next →',
+      close: 'Close',
+      statusBarReady: 'READY',
+      statusBarBaud: '56.6k DIAL-UP OK',
+      statusBarRes: '800×600 256 COLORS',
+      viewCode: '★ SOURCE CODE ★',
+      viewLive: '★ VIEW LIVE! ★',
+      techStack: 'TECH STACK:',
+      achievements: 'ACHIEVEMENTS:',
     },
     common: {
       language: 'Language',
