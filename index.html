@@ -2,31 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%%VITE_FAVICON%" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>Portfolio - Norbert Leksa</title>
-    <meta name="description" content="Norbert Leksa — Senior Software Developer. Scalable web apps in React/Next.js and mobile features in Flutter, used by tens of thousands of people." />
+    <title>Portfolio - %VITE_PERSON_NAME%</title>
+    <meta name="description" content="%VITE_PERSON_NAME% — Senior Software Developer. Scalable web apps in React/Next.js and mobile features in Flutter, used by tens of thousands of people." />
     <!-- Link previews (LinkedIn, Slack, Messenger, X). Absolute URLs: crawlers don't resolve relative ones -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://norbertleksa.github.io/pf/" />
-    <meta property="og:title" content="Norbert Leksa — Senior Software Developer" />
+    <meta property="og:url" content="%VITE_SITE_URL%" />
+    <meta property="og:title" content="%VITE_PERSON_NAME% — Senior Software Developer" />
     <meta property="og:description" content="React · Next.js · Flutter. Products used by tens of thousands of people — Kitopay, RightBite, Kitopi App." />
-    <meta property="og:image" content="https://norbertleksa.github.io/pf/og-image.png" />
+    <meta property="og:image" content="%VITE_SITE_URL%%VITE_OG_IMAGE%" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Norbert Leksa, Senior Software Developer — NL split-flap monogram" />
+    <meta property="og:image:alt" content="%VITE_PERSON_NAME%, Senior Software Developer — %VITE_PERSON_INITIALS% split-flap monogram" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Norbert Leksa",
+        "name": "%VITE_PERSON_NAME%",
         "jobTitle": "Senior Software Developer",
-        "url": "https://norbertleksa.github.io/pf/",
-        "email": "mailto:norbertleksa@gmail.com",
+        "url": "%VITE_SITE_URL%",
+        "email": "mailto:%VITE_PERSON_EMAIL%",
         "knowsAbout": ["React", "Next.js", "TypeScript", "Flutter"]
       }
     </script>

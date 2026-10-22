@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { person } from '../../../config/person'
 import { useLanguage } from '../../../contexts/LanguageContext'
 import { useTheme } from '../../../contexts/ThemeContext'
 import NavButton from './NavButton'
@@ -134,8 +135,10 @@ const TopBar = () => {
               text={
                 // a miniature of the hero's split-flap monogram
                 <>
-                  <span className={styles.logoFlap}>N</span>
-                  <span className={`${styles.logoFlap} ${styles.logoFlapAccent}`}>L</span>
+                  <span className={styles.logoFlap}>{person.initials[0]}</span>
+                  <span className={`${styles.logoFlap} ${styles.logoFlapAccent}`}>
+                    {person.initials[1]}
+                  </span>
                 </>
               }
               onClick={(e) => handleNavClick(e, '#hero')}
@@ -224,8 +227,10 @@ const TopBar = () => {
             closeMenu()
           }}
         >
-          <span className={styles.logoFlap}>N</span>
-          <span className={`${styles.logoFlap} ${styles.logoFlapAccent}`}>L</span>
+          <span className={styles.logoFlap}>{person.initials[0]}</span>
+          <span className={`${styles.logoFlap} ${styles.logoFlapAccent}`}>
+            {person.initials[1]}
+          </span>
         </button>
 
         <nav className={styles.mobileNavigation} aria-label="Main">
@@ -249,7 +254,7 @@ const TopBar = () => {
         <div className={styles.mobileFooter}>
           {contactOpen ? (
             <div className={styles.mobileContactChoice}>
-              <a href="mailto:norbertleksa@gmail.com" className={styles.mobileContactOption}>
+              <a href={`mailto:${person.email}`} className={styles.mobileContactOption}>
                 <svg
                   width="18"
                   height="18"

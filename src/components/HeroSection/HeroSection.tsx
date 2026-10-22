@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { person } from '../../config/person'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { trackEvent } from '../../utils/analytics'
 import { toggleRetro } from '../../utils/retro'
@@ -6,7 +7,7 @@ import ProofChip from '../ProofChip/ProofChip'
 import styles from './HeroSection.module.scss'
 import TopBar from './TopBar/TopBar'
 
-const FLAP_TARGET = ['N', 'L']
+const FLAP_TARGET = person.initials
 const FLAP_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 const randomFlapChar = () => FLAP_ALPHABET[Math.floor(Math.random() * FLAP_ALPHABET.length)]
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -21,7 +22,7 @@ const HeroSection = () => {
     FLAP_TARGET.map((char) => ({ char: prefersReducedMotion() ? char : ' ', tick: 0 }))
   )
 
-  // On load the monogram rolls through letters like an old departure board, then settles on NL
+  // On load the monogram rolls through letters like an old departure board, then settles on the initials
   useEffect(() => {
     if (prefersReducedMotion()) return
     const timers: ReturnType<typeof setTimeout>[] = []

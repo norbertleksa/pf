@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "biome format --write .",
     "check": "biome check --write .",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "deploy:przemek": "tsc && vite build --mode przemek && gh-pages -d dist -r https://github.com/leksa-dev/pf.git"
   },
   "dependencies": {
     "react": "^19.0.0",

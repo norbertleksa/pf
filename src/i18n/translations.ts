@@ -1,3 +1,4 @@
+import { person } from '../config/person'
 export type Language = 'pl' | 'en'
 
 export interface Translations {
@@ -133,7 +134,7 @@ const yearsPl =
 export const translations: Record<Language, Translations> = {
   pl: {
     topBar: {
-      logoText: 'Norbert Leksa',
+      logoText: person.name,
       hero: 'Start',
       projects: 'Projekty',
       skills: 'Umiejętności',
@@ -239,13 +240,12 @@ export const translations: Record<Language, Translations> = {
       copied: 'Skopiowano',
     },
     footer: {
-      copyright: '© {{year}} Norbert Leksa. Wszelkie prawa zastrzeżone.',
+      copyright: `© {{year}} ${person.name}. Wszelkie prawa zastrzeżone.`,
       backToTop: 'Na górę',
     },
     retro: {
-      marquee:
-        '*** WITAJ NA STRONIE DOMOWEJ NORBERTA *** DZIĘKI ZA ODWIEDZINY *** WPISZ SIĘ DO KSIĘGI GOŚCI!!! *** TERAZ Z 3 CASE STUDIES ***',
-      title: 'Strona domowa Norberta Leksy',
+      marquee: `*** WITAJ NA STRONIE DOMOWEJ ${person.firstNameGenitiveUpperPl} *** DZIĘKI ZA ODWIEDZINY *** WPISZ SIĘ DO KSIĘGI GOŚCI!!! *** TERAZ Z 3 CASE STUDIES ***`,
+      title: `Strona domowa ${person.nameGenitivePl}`,
       clickMe: '← kliknij, żeby wrócić!',
       underConstruction: 'STRONA W BUDOWIE',
       visitor: 'Jesteś gościem nr',
@@ -284,7 +284,7 @@ export const translations: Record<Language, Translations> = {
   },
   en: {
     topBar: {
-      logoText: 'Norbert Leksa',
+      logoText: person.name,
       hero: 'Home',
       projects: 'Projects',
       skills: 'Skills',
@@ -390,13 +390,12 @@ export const translations: Record<Language, Translations> = {
       copied: 'Copied',
     },
     footer: {
-      copyright: '© {{year}} Norbert Leksa. All rights reserved.',
+      copyright: `© {{year}} ${person.name}. All rights reserved.`,
       backToTop: 'Back to top',
     },
     retro: {
-      marquee:
-        "*** WELCOME TO NORBERT'S HOMEPAGE *** THANKS FOR STOPPING BY *** SIGN MY GUESTBOOK!!! *** NOW WITH 3 CASE STUDIES ***",
-      title: "Norbert Leksa's Homepage",
+      marquee: `*** WELCOME TO ${person.firstNameUpper}'S HOMEPAGE *** THANKS FOR STOPPING BY *** SIGN MY GUESTBOOK!!! *** NOW WITH 3 CASE STUDIES ***`,
+      title: `${person.name}'s Homepage`,
       clickMe: '← click me to go back!',
       underConstruction: 'UNDER CONSTRUCTION',
       visitor: 'You are visitor no.',
