@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { person } from '../../config/person'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { toggleRetro } from '../../utils/retro'
 import { type Project, projects } from '../Projects/projectsData'
@@ -86,7 +87,7 @@ const RetroHomepage = () => {
             <a href="#gc-projects">★ {t.retro.myProjects}</a>
             <a href="#gc-skills">★ {t.retro.skills}</a>
             <a href="#gc-guestbook">★ {t.retro.guestbook}</a>
-            <a href="mailto:norbertleksa@gmail.com">★ {t.retro.emailMe}</a>
+            <a href={`mailto:${person.email}`}>★ {t.retro.emailMe}</a>
             <div className={styles.nowPlaying}>
               {t.retro.nowPlaying}
               <br />
@@ -138,8 +139,8 @@ const RetroHomepage = () => {
             <section id="gc-guestbook" className={`${styles.block} ${styles.guestbook}`}>
               <h2>{t.retro.guestbook}</h2>
               <p>{t.contact.subtitle}</p>
-              <a href="mailto:norbertleksa@gmail.com" className={styles.email}>
-                norbertleksa@gmail.com
+              <a href={`mailto:${person.email}`} className={styles.email}>
+                {person.email}
               </a>
               <span>
                 {t.retro.orCall} <a href="tel:+48514230618">+48 514 230 618</a>
@@ -170,7 +171,7 @@ const RetroHomepage = () => {
             HARMED
           </li>
           <li className={styles.badgeNl}>
-            NL
+            {person.initials.join('')}
             <br />
             <b>EST. 2021</b>
           </li>
@@ -178,7 +179,7 @@ const RetroHomepage = () => {
 
         <p className={styles.footer}>
           {t.retro.bestViewed}
-          <br />© {year} Norbert Leksa
+          <br />© {year} {person.name}
         </p>
       </main>
 

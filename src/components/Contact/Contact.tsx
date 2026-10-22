@@ -1,5 +1,6 @@
 import type React from 'react'
 import { useState } from 'react'
+import { person } from '../../config/person'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { trackEvent } from '../../utils/analytics'
 import styles from './Contact.module.scss'
@@ -22,13 +23,13 @@ const Contact: React.FC = () => {
       label: t.contact.email,
       value: (
         <>
-          norbertleksa
+          {person.emailUser}
           <wbr />
           @gmail.com
         </>
       ),
-      link: 'mailto:norbertleksa@gmail.com',
-      copyValue: 'norbertleksa@gmail.com',
+      link: `mailto:${person.email}`,
+      copyValue: person.email,
     },
     {
       id: 'phone',

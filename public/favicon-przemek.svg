@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- PL on a single split-flap tile; letters are paths so the icon needs no web font -->
+  <rect width="64" height="64" rx="14" fill="#1b1c22"/>
+  <path d="M0 14A14 14 0 0 1 14 0h36a14 14 0 0 1 14 14v18H0z" fill="#26272e"/>
+  <path fill-rule="evenodd" d="M9 17h12a9 9 0 0 1 0 18h-6v12H9zM15 23v6h6a3 3 0 0 0 0-6z" fill="#f3f1ea"/>
+  <path d="M35 17h6v24h14v6H35z" fill="#f5b83d"/>
+  <rect y="31" width="64" height="2.5" fill="#0f1013"/>
+</svg>
